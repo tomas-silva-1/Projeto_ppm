@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 /**
  * Utility functions for dealing with images and colors.
  */
-class ImageUtil {
+public class ImageUtil {
 
     /**
      * Checks whether the given values are valid as an RGB color.
