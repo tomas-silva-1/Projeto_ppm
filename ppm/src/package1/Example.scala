@@ -52,19 +52,29 @@ object Example{
     }
   }
 
-  /* def mirrorV(qt :QTree[Coords]):QTree[Coords]={
+   def mirrorV(qt :QTree[Coords]):QTree[Coords]={
      qt match {
        case QEmpty=> QEmpty
        case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>{
-
+         QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
        }
        case QNode(value,one,two,three,four) => {
-
+         QNode(value,mirrorV(two),mirrorV(one), mirrorV(four), mirrorV(three))
        }
      }
    }
-   def mirrorH
- */
+   def mirrorH(qt :QTree[Coords]):QTree[Coords]={
+     qt match {
+       case QEmpty=> QEmpty
+       case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>{
+         QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
+       }
+       case QNode(value,one,two,three,four) => {
+         QNode(value,mirrorH(three),mirrorH(four), mirrorH(one), mirrorH(two))
+       }
+     }
+   }
+
   val l1: QLeaf[Coords, Section] = QLeaf((((0, 0): Point, (0, 0): Point): Coords, Color.red): Section)
   val l2: QLeaf[Coords, Section] = QLeaf((((1, 0): Point, (1, 0): Point): Coords, Color.blue): Section)
   val l3: QLeaf[Coords, Section] = QLeaf((((0, 1): Point, (0, 1): Point): Coords, Color.yellow): Section)
@@ -75,12 +85,16 @@ object Example{
   def main(args: Array[String]): Unit = {
 
       val valor: Double = 2
-      val qt1 :QTree[Coords] = Example.scale(valor,qt)
+      val qt1 :QTree[Coords] = scale(valor,qt)
+      val qt2 :QTree[Coords]= mirrorV(qt)
+    val qt3 :QTree[Coords]= mirrorH(qt)
 
     //val matrix: Array[Array[Int]] = readColorImage("img.png")
     println("ola")
     println(qt)
     println(qt1)
+   // println(qt2)
+    //println(qt3)
   }
 
 
