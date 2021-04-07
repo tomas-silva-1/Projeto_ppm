@@ -9,7 +9,6 @@ sealed trait QTree[+A]
 case class QNode[A](value: A, one: QTree[A], two: QTree[A], three: QTree[A], four: QTree[A]) extends QTree[A]
 case class QLeaf[A, B](value: B) extends QTree[A]
 case object QEmpty extends QTree[Nothing]
-//case class BitMap(matrix: Array[Array[Int]])
 
 
 case class Example[A](myField: QTree[Coords]){
@@ -32,7 +31,7 @@ object Example{
 
   def multiplier(c:Coords, s:Double): Coords = {
     val px : Point = ((c._1._1 * s).toInt, (c._1._2 * s).toInt)
-    val py : Point = ((c._2._1 * s).toInt, (c._2._2 * s).toInt)
+    val py : Point = ((c._2._1 * s+(s-1)).toInt, (c._2._2 * s+(s-1)).toInt)
     (px,py)
   }
 
@@ -74,6 +73,17 @@ object Example{
        }
      }
    }
+  def rotateL(qt :QTree[Coords]):QTree[Coords]={
+    qt match {
+      case QEmpty=> QEmpty
+      case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>{
+        QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
+      }
+      case QNode(value,one :QTree[Coords],two: QTree[Coords],three: QTree[Coords],four: QTree[Coords]) => {
+        QNode(value,rotateL(two),rotateL(four), rotateL(one), rotateL(three))
+      }
+    }
+  }
 
   val l1: QLeaf[Coords, Section] = QLeaf((((0, 0): Point, (0, 0): Point): Coords, Color.red): Section)
   val l2: QLeaf[Coords, Section] = QLeaf((((1, 0): Point, (1, 0): Point): Coords, Color.blue): Section)
@@ -84,16 +94,15 @@ object Example{
 
   def main(args: Array[String]): Unit = {
 
-      val valor: Double = 2
+      val valor: Double = 3
       val qt1 :QTree[Coords] = scale(valor,qt)
-      val qt2 :QTree[Coords]= mirrorV(qt)
-    val qt3 :QTree[Coords]= mirrorH(qt)
+    val qt2 :QTree[Coords] = rotateL(qt)
 
     //val matrix: Array[Array[Int]] = readColorImage("img.png")
     println("ola")
     println(qt)
-    println(qt1)
-   // println(qt2)
+   // println(qt1)
+    println(qt2)
     //println(qt3)
   }
 

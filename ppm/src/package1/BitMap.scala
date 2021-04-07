@@ -8,9 +8,9 @@ case class BitMap(matrix: List[List[Int]]){
 
 object BitMap{
 
-/* type rgb =(Int,Int,Int)
+ type rgb =(Int,Int,Int)
 
- def generateBitMapFromImage(s:String) : BitMap ={
+/* def generateBitMapFromImage(s:String) : BitMap ={
    val image : Array[Array[Int]] = ImageUtil.readColorImage(s)   //Array[Array[Int]]
 
  }
@@ -21,6 +21,6 @@ object BitMap{
 
    }
    }
- }*/
+ } */
 
 }
