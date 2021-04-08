@@ -25,9 +25,23 @@ object Example{
 
   //}
 
-  //def makeBitMap[A](qt:QTree[A]):BitMap={
+  def aux(cord: Coords,color: Color):List[List[Int]]{
+    val l:List[List[Int]]
+    l
+  }
 
-  //}
+  def makeBitMap[A](qt:QTree[A]):List[List[Int]]={
+    qt match {
+      case QEmpty => Nil
+      case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>{
+
+      }
+      case QNode(value, one, two, three, four) =>{
+        value :: makeBitMap(one)  ++ makeBitMap(two) ++ makeBitMap(three) ++ makeBitMap(four)
+      }
+
+    }
+  }
 
   def multiplier(c:Coords, s:Double): Coords = {
     val px : Point = ((c._1._1 * s).toInt, (c._1._2 * s).toInt)
@@ -96,14 +110,15 @@ object Example{
 
       val valor: Double = 3
       val qt1 :QTree[Coords] = scale(valor,qt)
-    val qt2 :QTree[Coords] = rotateL(qt)
+      val qt2 :QTree[Coords] = rotateL(qt)
+      val qt3 :QTree[Coords] = mirrorH(qt)
 
     //val matrix: Array[Array[Int]] = readColorImage("img.png")
     println("ola")
     println(qt)
    // println(qt1)
     println(qt2)
-    //println(qt3)
+    println(qt3)
   }
 
 
