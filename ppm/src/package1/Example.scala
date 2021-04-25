@@ -12,7 +12,11 @@ case object QEmpty extends QTree[Nothing]
 
 
 case class Example[A](myField: QTree[Coords]){
-  def scale()=Example.scale(1,this.myField)
+  def scale(d:Double)=Example.scale(d,this.myField)
+  def mirrorV()=Example.mirrorV(this.myField)
+  def mirrorH()=Example.mirrorH(this.myField)
+  def rotateL()=Example.rotateL(this.myField)
+
 }
 
 object Example{
@@ -25,19 +29,33 @@ object Example{
 
   //}
 
-  def aux(cord: Coords,color: Color):List[List[Int]]{
-    val l:List[List[Int]]
-    l
+  def paint(p: Point, color: Color, list:List[List[Int]]): List[List[Int]] = {
+    /*list match {
+      case Nil => Nil
+      case y::yx =>
+    }
+    list(p._1)(p._2) = ImageUtil.encodeRgb(color.getBlue,color.getGreen,color.getRed)*/
   }
 
   def makeBitMap[A](qt:QTree[A]):List[List[Int]]={
+    val list: List[List[Int]] =
     qt match {
       case QEmpty => Nil
       case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>{
 
+        /*list(x1)(y1)
+        def aux1(list:List[List[Int]], cord:Coords): List[List[Int]] = {
+          if(x1+1<=x2) aux1(list,((x1+1: Int, y1: Int), (x2: Int, y2: Int)))
+          paint((x1, y1), color,list:List[List[Int]])
+        }
+        aux1(list,((x1: Int, y1: Int), (x2: Int, y2: Int)))*/
+
       }
       case QNode(value, one, two, three, four) =>{
-        value :: makeBitMap(one)  ++ makeBitMap(two) ++ makeBitMap(three) ++ makeBitMap(four)
+        makeBitMap(one)
+        makeBitMap(two)
+        makeBitMap(three)
+        makeBitMap(four)
       }
 
     }
@@ -93,8 +111,52 @@ object Example{
       case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>{
         QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
       }
-      case QNode(value,one :QTree[Coords],two: QTree[Coords],three: QTree[Coords],four: QTree[Coords]) => {
+      case QNode(value,one,two,three,four) => {
         QNode(value,rotateL(two),rotateL(four), rotateL(one), rotateL(three))
+      }
+    }
+  }
+
+  def noise(c:Color):Color={
+    new Color(255,255,255)
+  }
+
+  def contrast(c:Color):Color={
+    val lumi = ImageUtil.luminance(c.getRed,c.getGreen,c.getBlue)
+    if(lumi > 127){
+      var r = 0
+      var g = 0
+      var b = 0
+      if(c.getRed - 100 > 0){  r = c.getRed - 100} else{  r=0}
+      if(c.getGreen - 100 > 0){ g = c.getGreen - 100} else{  g=0}
+      if(c.getBlue - 100 > 0){ b = c.getBlue - 100} else{  b=0}
+      new Color(r,g,b)
+    }else{
+      var r = 0
+      var g = 0
+      var b = 0
+      if(c.getRed + 100 < 255){  r = c.getRed + 100} else{ r=255}
+      if(c.getGreen + 100 < 255){ g = c.getGreen + 100} else{ g=255}
+      if(c.getBlue + 100 < 255){ b = c.getBlue + 100} else{ b=255}
+      new Color(r,g,b)
+    }
+  }
+
+  def sepia(c:Color):Color={
+    val r = ((c.getRed * .393) + (c.getGreen *.769) + (c.getBlue * .189)).toInt
+    val g = ((c.getRed * .349) + (c.getGreen *.686) + (c.getBlue * .168)).toInt
+    val b = ((c.getRed * .272) + (c.getGreen *.534) + (c.getBlue * .131)).toInt
+    new Color(r,g,b)
+  }
+
+  def mapColourEffect(f:Color => Color, qt:QTree[Coords]):QTree[Coords] = {
+    qt match {
+      case QEmpty=> QEmpty
+      case QLeaf((value,color:Color)) =>{
+        QLeaf((value,f(color)))
+      }
+      case QNode(value,one,two,three,four) => {
+        QNode(value,mapColourEffect(f,one),mapColourEffect(f,two),mapColourEffect(f,three),mapColourEffect(f,four))
       }
     }
   }
@@ -108,17 +170,18 @@ object Example{
 
   def main(args: Array[String]): Unit = {
 
-      val valor: Double = 3
-      val qt1 :QTree[Coords] = scale(valor,qt)
-      val qt2 :QTree[Coords] = rotateL(qt)
-      val qt3 :QTree[Coords] = mirrorH(qt)
+    val valor: Double = 3
+    val qt1 :QTree[Coords] = scale(valor,qt)
+    val qt2 :QTree[Coords] = rotateL(qt)
+    val qt3 :QTree[Coords] = mirrorH(qt)
 
     //val matrix: Array[Array[Int]] = readColorImage("img.png")
     println("ola")
     println(qt)
-   // println(qt1)
+    //println(qt1)
     println(qt2)
     println(qt3)
+
   }
 
 
