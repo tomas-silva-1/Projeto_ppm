@@ -4,13 +4,6 @@ import package1.Example.Coords
 
 import java.awt.Color
 
-
-sealed trait QTree[+A]
-case class QNode[A](value: A, one: QTree[A], two: QTree[A], three: QTree[A], four: QTree[A]) extends QTree[A]
-case class QLeaf[A, B](value: B) extends QTree[A]
-case object QEmpty extends QTree[Nothing]
-
-
 case class Example[A](myField: QTree[Coords]){
   def scale(d:Double)=Example.scale(d,this.myField)
   def mirrorV()=Example.mirrorV(this.myField)
@@ -30,14 +23,15 @@ object Example{
 
   }
 
-  def paint(p: Point, color: Color, list:List[List[Int]]): List[List[Int]] = {
-    /*list match {
+  /*def paint(p: Point, color: Color, list:List[List[Int]]): List[List[Int]] = {
+    list match {
       case Nil => Nil
       case y::yx =>
     }
-    list(p._1)(p._2) = ImageUtil.encodeRgb(color.getBlue,color.getGreen,color.getRed)*/
-  }
+    list(p._1)(p._2) = ImageUtil.encodeRgb(color.getBlue,color.getGreen,color.getRed)
+  }*/
 
+  //ImageUtil.encodeRgb(color.getBlue,color.getGreen,color.getRed)
   def makeBitMap[A](qt:QTree[A]):BitMap={
     val list: List[List[Int]] =
     qt match {
@@ -46,17 +40,16 @@ object Example{
 
         def aux1(list:List[List[Int]], cord:Coords): List[List[Int]] = {
           def aux2(list:List[List[Int]], cord:Coords): List[List[Int]] = {
-
+              if(x1<x2){
+                aux2(list, ((x1+1,y1),(x2,y2)))
+                list(x1)(y1)
+              }else{
+                aux1(list,((x1,y1+1),(x2,y2)))
+              }
           }
+          if(y1<y2) aux2(list,((x1,y1),(x2,y2)))
         }
-
-        /*list(x1)(y1)
-        def aux1(list:List[List[Int]], cord:Coords): List[List[Int]] = {
-          if(x1+1<=x2) aux1(list,((x1+1: Int, y1: Int), (x2: Int, y2: Int)))
-          paint((x1, y1), color,list:List[List[Int]])
-        }
-        aux1(list,((x1: Int, y1: Int), (x2: Int, y2: Int)))*/
-
+        aux1(list,((x1,y1),(x2,y2)))
       }
       case QNode(value, one, two, three, four) =>{
         makeBitMap(one)
