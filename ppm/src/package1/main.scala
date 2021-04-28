@@ -21,20 +21,25 @@ object main {
     image.map(_.toList).toList})
 
   val example = Example(qt)
+  val qt1 :QTree[Coords] = example.scale(100)
+  println(qt1)
+  val ex2 = Example(qt1)
   val bit2 : BitMap= example.makeBitMap()
+  val bit3 : BitMap= ex2.makeBitMap()
 
   def main(args: Array[String]): Unit = {
 
 
 
 
-   // val qt1 :QTree[Coords] = example.scale(3)
+
     //val qt2 :QTree[Coords] = example.rotateL()
     //val qt3 :QTree[Coords] = example.mirrorH()
 
     bit.generateImageFromBitMap("newImage.png")
     bit2.generateImageFromBitMap("newImage2.png")
-    println(Color.red)
+    bit3.generateImageFromBitMap("image3.png")
+
 
     println(bit)
     println(bit2)
