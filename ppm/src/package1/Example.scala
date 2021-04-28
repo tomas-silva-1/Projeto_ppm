@@ -5,11 +5,15 @@ import package1.Example.Coords
 import java.awt.Color
 
 case class Example[A](myField: QTree[Coords]){
+  def makeBitMap()=Example.makeBitMap(this.myField)
   def scale(d:Double)=Example.scale(d,this.myField)
   def mirrorV()=Example.mirrorV(this.myField)
   def mirrorH()=Example.mirrorH(this.myField)
   def rotateL()=Example.rotateL(this.myField)
   def rotateR()=Example.rotateR(this.myField)
+  def mapColourEffectNoise() = Example.mapColourEffect(Example.noise,this.myField)
+  def mapColourEffectContrast() = Example.mapColourEffect(Example.contrast,this.myField)
+  def mapColourEffectSepia() = Example.mapColourEffect(Example.sepia,this.myField)
 }
 
 object Example{
@@ -165,10 +169,6 @@ object Example{
 
     }
   }
-
-  def mapColourEffectNoise(f:Color => Color,qt:QTree[Coords]) = mapColourEffect(noise,qt)
-  def mapColourEffectContrast(f:Color => Color, qt:QTree[Coords]) = mapColourEffect(contrast,qt)
-  def mapColourEffectSepia(f:Color => Color, qt:QTree[Coords]) = mapColourEffect(sepia,qt)
 
   /*def change(f:Color => Color, list:List[Int]): List[Int]= {
     list map (k => { val v1 = ImageUtil.decodeRgb(k).toList
