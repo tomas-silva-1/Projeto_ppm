@@ -49,7 +49,7 @@ object Example{
                 list(cord._1._1)(cord._1._2) = ImageUtil.encodeRgb(c.getRed,c.getGreen,c.getBlue)
                 aux2(((cord._1._1,cord._1._2+1),(x2,y2)))
               }else{
-                aux1(((cord._1._1,y1),(x2,y2)))
+                aux1(((cord._1._1+1,y1),(x2,y2)))
               }
             }
             if(cord._1._1 <= x2) aux2(((cord._1._1,cord._1._2),(x2,y2)))
