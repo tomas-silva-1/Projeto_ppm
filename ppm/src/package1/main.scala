@@ -17,8 +17,8 @@ object main {
   val l7: QLeaf[Coords, Section] = QLeaf((((2, 2): Point, (3, 3): Point): Coords, Color.yellow): Section)
   val qt2: QTree[Coords] = QNode(((0, 0), (3, 3)), qt, l5, l6, l7)
 
-  val bit = BitMap({val image : Array[Array[Int]] = ImageUtil.readColorImage("img.png")
-                        image.map(_.toList).toList})
+  val bit = BitMap({val image : Array[Array[Int]] = ImageUtil.readColorImage("C:\\Users\\tomas\\Documents\\Docs\\Iscte\\ppm\\projeto\\Projeto_ppm\\ppm\\src\\package1\\img.png")
+    image.map(_.toList).toList})
 
 
 
@@ -34,11 +34,7 @@ object main {
     bit.generateImageFromBitMap("newImage.png")
     bit2.generateImageFromBitMap("newImage2.png")
 
-    println("ola")
-    println(qt)
-    //println(qt1)
-    println(qt2)
-    println(qt3)
+
 
   }
 
