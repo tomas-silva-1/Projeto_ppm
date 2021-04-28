@@ -5,15 +5,15 @@ import package1.Example.Coords
 import java.awt.Color
 
 case class Example[A](myField: QTree[Coords]){
-  def makeBitMap()=Example.makeBitMap(this.myField)
-  def scale(d:Double)=Example.scale(d,this.myField)
-  def mirrorV()=Example.mirrorV(this.myField)
-  def mirrorH()=Example.mirrorH(this.myField)
-  def rotateL()=Example.rotateL(this.myField)
-  def rotateR()=Example.rotateR(this.myField)
-  def mapColourEffectNoise() = Example.mapColourEffect(Example.noise,this.myField)
-  def mapColourEffectContrast() = Example.mapColourEffect(Example.contrast,this.myField)
-  def mapColourEffectSepia() = Example.mapColourEffect(Example.sepia,this.myField)
+  def makeBitMap() = Example.makeBitMap(this.myField)
+  def scale(d:Double):QTree[Coords] = Example.scale(d,this.myField)
+  def mirrorV():QTree[Coords] = Example.mirrorV(this.myField)
+  def mirrorH():QTree[Coords] = Example.mirrorH(this.myField)
+  def rotateL():QTree[Coords] = Example.rotateL(this.myField)
+  def rotateR():QTree[Coords] = Example.rotateR(this.myField)
+  def mapColourEffectNoise():QTree[Coords] = Example.mapColourEffect(Example.noise,this.myField)
+  def mapColourEffectContrast():QTree[Coords] = Example.mapColourEffect(Example.contrast,this.myField)
+  def mapColourEffectSepia():QTree[Coords] = Example.mapColourEffect(Example.sepia,this.myField)
 }
 
 object Example{
@@ -23,9 +23,15 @@ object Example{
   type Coords = (Point, Point)
   type Section = (Coords, Color)
 
-   def makeQTree[A](b: BitMap):QTree[A]={
+   /*def makeQTree[A](b: BitMap):QTree[Coords]={
+     val ySize = b.getListOfList().length
+     val xSize = b.getListOfList().head.length
 
-  }
+     def aux(xS:Int,yS:Int):QTree[Coords]={
+
+     }
+
+  }*/
 
   def makeBitMap[A](qt:QTree[A]):BitMap={
     val list: Array[Array[Int]] = new Array[Array[Int]](10)
@@ -58,9 +64,15 @@ object Example{
   }
 
   def multiplier(c:Coords, s:Double): Coords = {
-    val px : Point = ((c._1._1 * s).toInt, (c._1._2 * s).toInt)
-    val py : Point = ((c._2._1 * s+(s-1)).toInt, (c._2._2 * s+(s-1)).toInt)
-    (px,py)
+    if(s >= 1) {
+      val px: Point = ((c._1._1 * s).toInt, (c._1._2 * s).toInt)
+      val py: Point = ((c._2._1 * s + (s - 1)).toInt, (c._2._2 * s + (s - 1)).toInt)
+      (px, py)
+    }else{
+      val px: Point = ((c._1._1 * s).toInt, (c._1._2 * s).toInt)
+      val py: Point = ((c._2._1 - (s - 1)).toInt, (c._2._2 - (s - 1)).toInt)
+      (px, py)
+    }
   }
 
 

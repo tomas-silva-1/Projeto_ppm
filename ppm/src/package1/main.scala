@@ -24,20 +24,16 @@ object main {
 
   def main(args: Array[String]): Unit = {
 
-    bit.generateImageFromBitMap("newImage.png")
-
     val example = Example(qt)
 
     val bit2 :BitMap= example.makeBitMap()
-    val valor: Double = 3
-    val qt1 :QTree[Coords] = example.scale(valor)
+    val qt1 :QTree[Coords] = example.scale(3)
     val qt2 :QTree[Coords] = example.rotateL()
     val qt3 :QTree[Coords] = example.mirrorH()
 
     bit.generateImageFromBitMap("newImage.png")
     bit2.generateImageFromBitMap("newImage2.png")
 
-    //val matrix: Array[Array[Int]] = readColorImage("img.png")
     println("ola")
     println(qt)
     //println(qt1)
