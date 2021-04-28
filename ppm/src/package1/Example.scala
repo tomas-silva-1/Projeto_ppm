@@ -5,7 +5,7 @@ import package1.Example.Coords
 import java.awt.Color
 
 case class Example[A](myField: QTree[Coords]){
-  def makeBitMap() = Example.makeBitMap(this.myField)
+  def makeBitMap(): BitMap = Example.makeBitMap(this.myField)
   def scale(d:Double):QTree[Coords] = Example.scale(d,this.myField)
   def mirrorV():QTree[Coords] = Example.mirrorV(this.myField)
   def mirrorH():QTree[Coords] = Example.mirrorH(this.myField)
@@ -34,7 +34,7 @@ object Example{
   }*/
 
   def makeBitMap[A](qt:QTree[A]):BitMap={
-    val list: Array[Array[Int]] = new Array[Array[Int]](10)
+    val list: Array[Array[Int]] = Array.ofDim[Int](2,2)
     qt match {
       case QEmpty => Nil
       case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>{
@@ -45,7 +45,7 @@ object Example{
                 list(cord._1._1)(cord._1._2) = ImageUtil.encodeRgb(color.getBlue,color.getGreen,color.getRed)
                 aux2(list, ((cord._1._1+1,cord._1._2),(cord._2._1,cord._2._2)),k)
               }else{
-                aux1(list,((k,cord._1._2+1),(cord._2._1,cord._2._2)),k)
+                aux1(list,((k,cord._1._2+1),(cord._2._1,cord._2._2)),k)   //val res = Array.ofDim[Int](..
               }
           }
           if(cord._1._2 <= cord._2._2) aux2(list,((cord._1._1,cord._1._2),(cord._2._1,cord._2._2)),k)
