@@ -1,6 +1,6 @@
 package package1
 
-import package1.Example.{Coords, Point, Section, mirrorH, rotateL, scale}
+import package1.Example.{Coords, Point, Section, rotateL, scale}
 
 import java.awt.Color
 
@@ -20,7 +20,7 @@ object main {
     val valor: Double = 3
     val qt1 :QTree[Coords] = scale(valor,qt)
     val qt2 :QTree[Coords] = rotateL(qt)
-    val qt3 :QTree[Coords] = mirrorH(qt)
+    val qt3 :QTree[Coords] = Example.mirrorH(qt)
 
     //val matrix: Array[Array[Int]] = readColorImage("img.png")
     println("ola")

@@ -23,31 +23,22 @@ object Example{
 
   }
 
-  /*def paint(p: Point, color: Color, list:List[List[Int]]): List[List[Int]] = {
-    list match {
-      case Nil => Nil
-      case y::yx =>
-    }
-    list(p._1)(p._2) = ImageUtil.encodeRgb(color.getBlue,color.getGreen,color.getRed)
-  }*/
-
-  //ImageUtil.encodeRgb(color.getBlue,color.getGreen,color.getRed)
   def makeBitMap[A](qt:QTree[A]):BitMap={
-    val list: List[List[Int]] =
+    val list: Array[Array[Int]] = new Array[Array[Int]](10)
     qt match {
       case QEmpty => Nil
       case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>{
 
-        def aux1(list:List[List[Int]], cord:Coords): List[List[Int]] = {
-          def aux2(list:List[List[Int]], cord:Coords): List[List[Int]] = {
-              if(x1<x2){
-                aux2(list, ((x1+1,y1),(x2,y2)))
-                list(x1)(y1)
+        def aux1(list:Array[Array[Int]], cord:Coords): Unit = {
+          def aux2(list:Array[Array[Int]], cord:Coords): Unit = {
+              if(cord._1._1<=x2){
+                list(cord._1._1)(cord._1._2) = ImageUtil.encodeRgb(color.getBlue,color.getGreen,color.getRed)
+                aux2(list, ((cord._1._1+1,cord._1._2),(x2,y2)))
               }else{
-                aux1(list,((x1,y1+1),(x2,y2)))
+                aux1(list,((x1,cord._1._2+1),(x2,y2)))
               }
           }
-          if(y1<y2) aux2(list,((x1,y1),(x2,y2)))
+          if(cord._1._2 <= y2) aux2(list,((cord._1._1,cord._1._2),(x2,y2)))
         }
         aux1(list,((x1,y1),(x2,y2)))
       }
@@ -59,7 +50,7 @@ object Example{
       }
 
     }
-    new BitMap(list)
+    new BitMap(list.map(_.toList).toList)
   }
 
   def multiplier(c:Coords, s:Double): Coords = {
@@ -91,7 +82,8 @@ object Example{
          QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
 
        case QNode(value,one,two,three,four) =>
-         QNode(value,mirrorV(two),mirrorV(one), mirrorV(four), mirrorV(three))
+         QNode(value, mirrorV(two), mirrorV(one), mirrorV(four), mirrorV(three))
+
      }
    }
    def mirrorH(qt :QTree[Coords]):QTree[Coords]={
