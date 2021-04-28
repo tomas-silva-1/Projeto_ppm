@@ -39,18 +39,18 @@ object Example{
       case QEmpty => Nil
       case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>{
 
-        def aux1(list:Array[Array[Int]], cord:Coords): Unit = {
-          def aux2(list:Array[Array[Int]], cord:Coords): Unit = {
-              if(cord._1._1<=x2){
+        def aux1(list:Array[Array[Int]], cord:Coords, k:Int): Unit = {
+          def aux2(list:Array[Array[Int]], cord:Coords, k:Int): Unit = {
+              if(cord._1._1<=cord._2._1){
                 list(cord._1._1)(cord._1._2) = ImageUtil.encodeRgb(color.getBlue,color.getGreen,color.getRed)
-                aux2(list, ((cord._1._1+1,cord._1._2),(x2,y2)))
+                aux2(list, ((cord._1._1+1,cord._1._2),(cord._2._1,cord._2._2)),k)
               }else{
-                aux1(list,((x1,cord._1._2+1),(x2,y2)))
+                aux1(list,((k,cord._1._2+1),(cord._2._1,cord._2._2)),k)
               }
           }
-          if(cord._1._2 <= y2) aux2(list,((cord._1._1,cord._1._2),(x2,y2)))
+          if(cord._1._2 <= cord._2._2) aux2(list,((cord._1._1,cord._1._2),(cord._2._1,cord._2._2)),k)
         }
-        aux1(list,((x1,y1),(x2,y2)))
+        aux1(list,((x1,y1),(x2,y2)),x1)
       }
       case QNode(value, one, two, three, four) =>{
         makeBitMap(one)
