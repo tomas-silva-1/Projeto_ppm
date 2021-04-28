@@ -42,7 +42,7 @@ object Example{
         def aux1(list:Array[Array[Int]], cord:Coords, k:Int, c:Color): Unit = {
           def aux2(list:Array[Array[Int]], cord:Coords, k:Int, c:Color): Unit = {
               if(cord._1._1<=cord._2._1){
-                list(cord._1._1)(cord._1._2) = ImageUtil.encodeRgb(c.getBlue,c.getGreen,c.getRed)
+                list(cord._1._1)(cord._1._2)            = ImageUtil.encodeRgb(c.getBlue,c.getGreen,c.getRed)
                 aux2(list, ((cord._1._1+1,cord._1._2),(cord._2._1,cord._2._2)),k,c)
               }else{
                 aux1(list,((k,cord._1._2+1),(cord._2._1,cord._2._2)),k,c)

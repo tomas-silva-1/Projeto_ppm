@@ -20,19 +20,21 @@ object main {
   val bit = BitMap({val image : Array[Array[Int]] = ImageUtil.readColorImage("C:\\Users\\tomas\\Documents\\Docs\\Iscte\\ppm\\projeto\\Projeto_ppm\\ppm\\src\\package1\\img.png")
     image.map(_.toList).toList})
 
-
+  val example = Example(qt)
+  val bit2 :List[List[Int]]= example.makeBitMap().getListOfList()
 
   def main(args: Array[String]): Unit = {
 
-    val example = Example(qt)
 
-    val bit2 :BitMap= example.makeBitMap()
+
+
     val qt1 :QTree[Coords] = example.scale(3)
     val qt2 :QTree[Coords] = example.rotateL()
     val qt3 :QTree[Coords] = example.mirrorH()
 
     bit.generateImageFromBitMap("newImage.png")
-    bit2.generateImageFromBitMap("newImage2.png")
+    //bit2.generateImageFromBitMap("newImage2.png")
+    println(bit2)
 
 
 
