@@ -33,16 +33,54 @@ object Example{
 
   }*/
 
+
+
+
   def makeBitMap[A](qt:QTree[A]):BitMap={
     val list: Array[Array[Int]] = Array.ofDim[Int](2,2)
+    def makeArray(qt2:QTree[A]):Unit={
+      qt2 match {
+        case QEmpty => Nil
+        case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),c: Color)) =>{
+
+          def aux1( cord:Coords, k:Int): Unit = {
+            def aux2( cord:Coords, k:Int): Unit = {
+              if(cord._1._1<=cord._2._1){
+                list(cord._1._1)(cord._1._2) = ImageUtil.encodeRgb(c.getRed,c.getGreen,c.getBlue)
+                aux2(((cord._1._1+1,cord._1._2),(cord._2._1,cord._2._2)),k)
+              }else{
+                aux1(((k,cord._1._2+1),(cord._2._1,cord._2._2)),k)
+              }
+            }
+            if(cord._1._2 <= cord._2._2) aux2(((cord._1._1,cord._1._2),(cord._2._1,cord._2._2)),k)
+          }
+          aux1(((x1,y1),(x2,y2)),x1)
+        }
+        case QNode(value, one, two, three, four) =>{
+          makeArray(one)
+          makeArray(two)
+          makeArray(three)
+          makeArray(four)
+        }
+      }
+    }
+    makeArray(qt)
+    new BitMap(list.map(_.toList).toList)
+  }
+
+/*  def makeBitMap[A](qt:QTree[A]):Array[Array[Int]]={
+    //var list: Array[Array[Int]] = Array.ofDim[Int](2,2)
     qt match {
-      case QEmpty => Nil
+      case QEmpty =>
       case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>{
 
         def aux1(/*list:Array[Array[Int]],*/ cord:Coords, k:Int, c:Color): Unit = {
           def aux2(/*list:Array[Array[Int]],*/ cord:Coords, k:Int, c:Color): Unit = {
               if(cord._1._1<=cord._2._1){
-                list(cord._1._1)(cord._1._2) = ImageUtil.encodeRgb(c.getBlue,c.getGreen,c.getRed)
+               // Array.ofDim[Int](cord._1._1,cord._1._2)
+                (cord._1._1)(cord._1._2) = ImageUtil.encodeRgb(c.getBlue,c.getGreen,c.getRed)
+                println( list(cord._1._1)(cord._1._2) )
+                println(ImageUtil.encodeRgb(c.getBlue,c.getGreen,c.getRed))
                 aux2(/*list,*/ ((cord._1._1+1,cord._1._2),(cord._2._1,cord._2._2)),k,c)
               }else{
                 aux1(/*list,*/((k,cord._1._2+1),(cord._2._1,cord._2._2)),k,c)
@@ -52,16 +90,20 @@ object Example{
         }
         aux1(/*list,*/((x1,y1),(x2,y2)),x1,color)
       }
-      case QNode(value, one, two, three, four) =>{
+      case QNode(((x1: Int, y1: Int), (x2: Int, y2: Int)), one, two, three, four) =>{
+        Array.ofDim[Int](y1,y2)
         makeBitMap(one)
         makeBitMap(two)
         makeBitMap(three)
         makeBitMap(four)
+        println(list)
+       // new BitMap(list.map(_.toList).toList)
       }
 
     }
-    new BitMap(list.map(_.toList).toList)
-  }
+
+
+  } */
 
   def multiplier(c:Coords, s:Double): Coords = {
     if(s >= 1) {
@@ -142,7 +184,7 @@ object Example{
       }
   }
 
-  def noise(c:Color):Color={
+  def noise(c:Color/*,r: RandomWithState */):Color={
     val random = rand(r)
     if(random._1 == 0){
       new Color(max(c.getRed - 100,0),max(c.getGreen - 100,0),max(c.getBlue - 100,0))
