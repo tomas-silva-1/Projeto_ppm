@@ -43,18 +43,18 @@ object Example{
         case QEmpty => Nil
         case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),c: Color)) =>{
 
-          def aux1( cord:Coords, k:Int): Unit = {
-            def aux2( cord:Coords, k:Int): Unit = {
-              if(cord._1._1<=cord._2._1){
+          def aux1( cord:Coords/*, k:Int*/): Unit = {
+            def aux2( cord:Coords/*, k:Int*/): Unit = {
+              if(cord._1._1<=x2){
                 list(cord._1._1)(cord._1._2) = ImageUtil.encodeRgb(c.getRed,c.getGreen,c.getBlue)
-                aux2(((cord._1._1+1,cord._1._2),(cord._2._1,cord._2._2)),k)
+                aux2(((cord._1._1+1,cord._1._2),(x2,y2)))
               }else{
-                aux1(((k,cord._1._2+1),(cord._2._1,cord._2._2)),k)
+                aux1(((x1,cord._1._2+1),(x2,y2)))
               }
             }
-            if(cord._1._2 <= cord._2._2) aux2(((cord._1._1,cord._1._2),(cord._2._1,cord._2._2)),k)
+            if(cord._1._2 <= y2) aux2(((cord._1._1,cord._1._2),(x2,y2)))
           }
-          aux1(((x1,y1),(x2,y2)),x1)
+          aux1(((x1,y1),(x2,y2)))
         }
         case QNode(value, one, two, three, four) =>{
           makeArray(one)
