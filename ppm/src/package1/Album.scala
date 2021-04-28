@@ -6,13 +6,13 @@ import package1.Example.Coords
 
 object Album{
 
-  type Album = List[(String,BitMap,QTree[Coords])]
+  type Album = List[(String,BitMap)]
 
-  def add(st:String,bit:BitMap,qt:QTree[Coords])(implicit ab:Album):Album={
-    val tuple = (st,bit,qt)
+  def add(st:String,bit:BitMap)(implicit ab:Album):Album={
+    val tuple = (st,bit)
     ab match{
       case Nil => List(tuple)
-      case x::xs => x :: add(st,bit,qt)(xs)
+      case x::xs => x :: add(st,bit)(xs)
     }
   }
 
@@ -23,9 +23,9 @@ object Album{
     }
   }
 
-  def get(st:String)(implicit ab:Album): (String,BitMap,QTree[Coords]) ={
+  def get(st:String)(implicit ab:Album): (String,BitMap) ={
     ab match{
-      case Nil => (st,new BitMap(List()),QEmpty)
+      case Nil => (st,new BitMap(List()))
       case x::xs => if( x._1.equalsIgnoreCase(st) ) x else get(st)(xs)
     }
   }
@@ -33,21 +33,14 @@ object Album{
   def editBitMap(st:String,bit:BitMap)(implicit ab:Album):Album={
     ab match{
       case Nil => Nil
-      case x::xs => if( x._1.equalsIgnoreCase(st) ) (st,bit,Example.makeQTree(bit)) :: xs else x :: editBitMap(st,bit)(xs)
-    }
-  }
-
-  def editQTree(st:String,qt:QTree[Coords])(implicit ab:Album):Album={
-    ab match{
-      case Nil => Nil
-      case x::xs => if( x._1.equalsIgnoreCase(st) ) (st,Example.makeBitMap(qt),qt) :: xs else x :: editQTree(st,qt)(xs)
+      case x::xs => if( x._1.equalsIgnoreCase(st) ) (st,bit) :: xs else x :: editBitMap(st,bit)(xs)
     }
   }
 
   def editName(st:String, newSt:String)(implicit ab:Album):Album={
     ab match{
       case Nil => Nil
-      case x::xs => if( x._1.equalsIgnoreCase(st) ) (newSt,x._2,x._3) :: xs else x :: editName(st,newSt)(xs)
+      case x::xs => if( x._1.equalsIgnoreCase(st) ) (newSt,x._2) :: xs else x :: editName(st,newSt)(xs)
     }
   }
 
