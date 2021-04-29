@@ -113,13 +113,28 @@ object Manipulation{
     }
   }
 
+  def tree(qt:QTree[Coords],i:Int):QTree[Coords]={
+    qt match{
+      case QEmpty => QEmpty
+      case QLeaf((value,color: Color)) => QLeaf(value,color)
+      case QNode(value,one,two,three,four) => {
+        i match{
+          case 1 => one
+          case 2 => two
+          case 3 => three
+          case 4 => four
+        }
+      }
+    }
+  }
+
   def newQTree(qt:QTree[Coords], qt2:QTree[Coords]):QTree[Coords]={
     qt match{
       case QEmpty => QEmpty
       case QLeaf((value,color: Color)) => QLeaf(cords(qt2),color)
       case QNode(value,one,two,three,four) => {
-        /*QNode(cords(qt2),newQTree(two,one),newQTree(one,two),newQTree(four,three),newQTree(three,four))*/
-        QNode(cords(qt2),one,two,three,four)
+        QNode(cords(qt2),newQTree(two,tree(qt2,1)),newQTree(one,tree(qt2,2)),newQTree(four,tree(qt2,3)),newQTree(three,tree(qt2,4)))
+        //QNode(cords(qt2),one,two,three,four)
       }
     }
   }
