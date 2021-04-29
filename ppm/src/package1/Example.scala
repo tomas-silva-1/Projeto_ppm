@@ -119,7 +119,8 @@ object Manipulation{
       case QEmpty => QEmpty
       case QLeaf((value,color: Color)) => QLeaf(cords(qt2),color)
       case QNode(value,one,two,three,four) => {
-        QNode(cords(qt2),newQTree(two,one),newQTree(one,two),newQTree(four,three),newQTree(three,four))
+        /*QNode(cords(qt2),newQTree(two,one),newQTree(one,two),newQTree(four,three),newQTree(three,four))*/
+        QNode(cords(qt2),one,two,three,four)
       }
     }
   }
