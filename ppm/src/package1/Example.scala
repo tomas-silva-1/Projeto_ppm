@@ -1,22 +1,22 @@
 package package1
 
-import package1.Example.Coords
+import package1.Manipulation.Coords
 
 import java.awt.Color
 
 case class Example[A](myField: QTree[Coords]){
-  def makeBitMap(): BitMap = Example.makeBitMap(this.myField)
-  def scale(d:Double):QTree[Coords] = Example.scale(d,this.myField)
-  def mirrorV():QTree[Coords] = Example.mirrorV(this.myField)
-  def mirrorH():QTree[Coords] = Example.mirrorH(this.myField)
-  def rotateL():QTree[Coords] = Example.rotateL(this.myField)
-  def rotateR():QTree[Coords] = Example.rotateR(this.myField)
-  def mapColourEffectNoise():QTree[Coords] = Example.mapColourEffectNoise(Example.noise,this.myField)
-  def mapColourEffectContrast():QTree[Coords] = Example.mapColourEffect(Example.contrast,this.myField)
-  def mapColourEffectSepia():QTree[Coords] = Example.mapColourEffect(Example.sepia,this.myField)
+  def makeBitMap(): BitMap = Manipulation.makeBitMap(this.myField)
+  def scale(d:Double):QTree[Coords] = Manipulation.scale(d,this.myField)
+  def mirrorV():QTree[Coords] = Manipulation.mirrorV(this.myField)
+  def mirrorH():QTree[Coords] = Manipulation.mirrorH(this.myField)
+  def rotateL():QTree[Coords] = Manipulation.rotateL(this.myField)
+  def rotateR():QTree[Coords] = Manipulation.rotateR(this.myField)
+  def mapColourEffectNoise():QTree[Coords] = Manipulation.mapColourEffectNoise(Manipulation.noise,this.myField)
+  def mapColourEffectContrast():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.contrast,this.myField)
+  def mapColourEffectSepia():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.sepia,this.myField)
 }
 
-object Example{
+object Manipulation{
 
   type Point = (Int , Int)
   type Coords = (Point, Point)
@@ -106,6 +106,22 @@ object Example{
     }
   }
 
+  def cords(qt:QTree[Coords]):Coords={
+    qt match{
+      case QEmpty => ((0,0),(0,0))
+      case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) => ((x1: Int, y1: Int), (x2: Int, y2: Int))
+      case QNode(value,one,two,three,four) => value
+    }
+  }
+
+  def newQTree(qt:QTree[Coords], qt2:QTree[Coords]):QTree[Coords]={
+    qt match{
+      case QEmpty => QEmpty
+      case QLeaf((value,color: Color)) => QLeaf(cords(qt2),color)
+      case QNode(value,one,two,three,four) => QNode(cords(qt2),one,two,three,four)
+    }
+  }
+
    def mirrorV(qt :QTree[Coords]):QTree[Coords]={
      qt match {
        case QEmpty=> QEmpty
@@ -113,8 +129,11 @@ object Example{
          QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
 
        case QNode(value,one,two,three,four) => {
-
-         QNode(value, mirrorV(two), mirrorV(one), mirrorV(four), mirrorV(three))
+         val newOne = newQTree(two,one)
+         val newTwo = newQTree(one,two)
+         val newThree = newQTree(four,three)
+         val newFour = newQTree(three,four)
+         QNode(value, mirrorV(newOne), mirrorV(newTwo), mirrorV(newThree), mirrorV(newFour))
        }
 
      }

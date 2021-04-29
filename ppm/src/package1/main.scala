@@ -1,6 +1,6 @@
 package package1
 
-import package1.Example.{Coords, Point, Section}
+import package1.Manipulation.{Coords, Point, Section}
 import package1.Functions.Album
 
 import java.awt.Color
@@ -21,41 +21,24 @@ object main {
   val bit = BitMap({val image : Array[Array[Int]] = ImageUtil.readColorImage("C:\\Users\\tomas\\Documents\\Docs\\Iscte\\ppm\\projeto\\Projeto_ppm\\ppm\\src\\package1\\img.png")
     image.map(_.toList).toList})
 
-  val example = Example(qt)
-  val qt1 :QTree[Coords] = example.mapColourEffectContrast()
-  val qt5 :QTree[Coords] = example.mapColourEffectSepia()
-  println(qt1)
-  val ex2 = Example(qt1)
-  val ex3 = Example(qt5)
-  val ex4 = Example (qt2)
-  val qt6 = ex4.mapColourEffectSepia()
-  val ex6 = Example(qt6)
-  val bit2 : BitMap= example.makeBitMap()
-  val bit3 : BitMap= ex2.makeBitMap()
-  val bit4 :BitMap = ex3.makeBitMap()
-  val bit5 : BitMap = ex6.makeBitMap()
-  /*val al = ImagesAlbum(new Album(List()))
-  val a1:Album = al.add("picasso",bit2)*/
+  val ex = Example(qt)
+  val bit2 : BitMap= ex.makeBitMap()
 
+
+  val qt3 = ex.mirrorV()
+  val ex1 = Example(qt3)
+  val bit3 = ex1.makeBitMap()
 
 
   def main(args: Array[String]): Unit = {
 
 
-
-
-
-    //val qt2 :QTree[Coords] = example.rotateL()
-    //val qt3 :QTree[Coords] = example.mirrorH()
-
-    bit.generateImageFromBitMap("newImage.png")
-    bit2.generateImageFromBitMap("newImage2.png")
+    bit.generateImageFromBitMap("image.png")
+    bit2.generateImageFromBitMap("image2.png")
     bit3.generateImageFromBitMap("image3.png")
-    bit4.generateImageFromBitMap("image4.png")
-    bit5.generateImageFromBitMap("img5.png")
 
-    println(bit)
-    println(bit2)
+    /*println(bit)
+    println(bit2)*/
 
 
 
