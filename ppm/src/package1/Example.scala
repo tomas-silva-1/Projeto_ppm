@@ -11,7 +11,7 @@ case class Example[A](myField: QTree[Coords]){
   def mirrorH():QTree[Coords] = Example.mirrorH(this.myField)
   def rotateL():QTree[Coords] = Example.rotateL(this.myField)
   def rotateR():QTree[Coords] = Example.rotateR(this.myField)
-  def mapColourEffectNoise(r:MyRandom):QTree[Coords] = Example.mapColourEffectNoise(Example.noise,this.myField,r)
+  def mapColourEffectNoise():QTree[Coords] = Example.mapColourEffectNoise(Example.noise,this.myField)
   def mapColourEffectContrast():QTree[Coords] = Example.mapColourEffect(Example.contrast,this.myField)
   def mapColourEffectSepia():QTree[Coords] = Example.mapColourEffect(Example.sepia,this.myField)
 }
@@ -22,13 +22,18 @@ object Example{
   type Coords = (Point, Point)
   type Section = (Coords, Color)
 
-   def makeQTree[A](b: BitMap):QTree[Coords]={
-     val ySize = b.getListOfList().length
-     val xSize = b.getListOfList().head.length
+  def generateBitMapFromImage(s:String) : BitMap ={
+    val image : Array[Array[Int]] = ImageUtil.readColorImage(s)
+    new BitMap(image.map(_.toList).toList)
+  }
 
-     def aux(xS:Int,yS:Int):QTree[Coords]={
+  def makeQTree[A](b: BitMap):QTree[Coords]={
+    val ySize = b.getListOfList().length
+    val xSize = b.getListOfList().head.length
 
-     }
+    def aux(xS:Int,yS:Int):QTree[Coords]={
+
+    }
 
   }
 
@@ -107,8 +112,10 @@ object Example{
        case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>
          QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
 
-       case QNode(value,one,two,three,four) =>
+       case QNode(value,one,two,three,four) => {
+
          QNode(value, mirrorV(two), mirrorV(one), mirrorV(four), mirrorV(three))
+       }
 
      }
    }
@@ -203,7 +210,8 @@ object Example{
     }
   }*/
 
-  def mapColourEffectNoise(f:(Color,Int) => Color, qt:QTree[Coords], r:RandomWithState):QTree[Coords] = {
+  def mapColourEffectNoise(f:(Color,Int) => Color, qt:QTree[Coords]):QTree[Coords] = {
+    val r = MyRandom(2)
     val list = makeBitMap(qt).getListOfList()
     def aux(f:(Color,Int) => Color, l:List[List[Int]],random:RandomWithState): List[List[Int]] = {
       l match {

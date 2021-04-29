@@ -1,6 +1,7 @@
 package package1
 
 import package1.Example.{Coords, Point, Section}
+import package1.Functions.Album
 
 import java.awt.Color
 
@@ -33,6 +34,8 @@ object main {
   val bit3 : BitMap= ex2.makeBitMap()
   val bit4 :BitMap = ex3.makeBitMap()
   val bit5 : BitMap = ex6.makeBitMap()
+  /*val al = ImagesAlbum(new Album(List()))
+  val a1:Album = al.add("picasso",bit2)*/
 
 
 
