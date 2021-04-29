@@ -1,6 +1,8 @@
 package package1
 
 import package1.Manipulation.Coords
+import qtrees.{QEmpty, QLeaf, QNode, QTree}
+import random.RandomWithState
 
 import java.awt.Color
 
@@ -100,7 +102,7 @@ object Manipulation{
       }
       case QNode(value,one,two,three,four) => {
         val newCoords: Coords = multiplier(value,s)
-        QNode(newCoords,scale(s,one),scale(s,two), scale(s,three), scale(s,four))
+        qtrees.QNode(newCoords,scale(s,one),scale(s,two), scale(s,three), scale(s,four))
       }
     }
   }
@@ -116,13 +118,23 @@ object Manipulation{
   def tree(qt:QTree[Coords],i:Int):QTree[Coords]={
     qt match{
       case QEmpty => QEmpty
-      case QLeaf((value,color: Color)) => QLeaf(value,color)
+      case QLeaf((value,color: Color)) =>{ println("leaf")
+        QLeaf(value,color)
+      }
       case QNode(value,one,two,three,four) => {
         i match{
-          case 1 => one
-          case 2 => two
-          case 3 => three
-          case 4 => four
+          case 1 =>{ println(1)
+            tree(one,i)
+            }
+          case 2 => {println(2)
+            tree(two,i)
+            }
+          case 3 => {println(3)
+            tree(three,i)
+            }
+          case 4 => {println(4)
+            tree(four,i)
+            }
         }
       }
     }
@@ -133,7 +145,7 @@ object Manipulation{
       case QEmpty => QEmpty
       case QLeaf((value,color: Color)) => QLeaf(cords(qt2),color)
       case QNode(value,one,two,three,four) => {
-        QNode(cords(qt2),newQTree(two,tree(qt2,1)),newQTree(one,tree(qt2,2)),newQTree(four,tree(qt2,3)),newQTree(three,tree(qt2,4)))
+        qtrees.QNode(cords(qt2),newQTree(two,tree(qt2,1)),newQTree(one,tree(qt2,2)),newQTree(four,tree(qt2,3)),newQTree(three,tree(qt2,4)))
         //QNode(cords(qt2),one,two,three,four)
       }
     }
@@ -149,7 +161,7 @@ object Manipulation{
          val newTwo = newQTree(one,two)
          val newThree = newQTree(four,three)
          val newFour = newQTree(three,four)
-         QNode(value, mirrorV(newOne), mirrorV(newTwo), mirrorV(newThree), mirrorV(newFour))
+         qtrees.QNode(value, mirrorV(newOne), mirrorV(newTwo), mirrorV(newThree), mirrorV(newFour))
        }
 
      }
@@ -161,7 +173,7 @@ object Manipulation{
          QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
 
        case QNode(value,one,two,three,four) =>
-         QNode(value,mirrorH(three),mirrorH(four), mirrorH(one), mirrorH(two))
+         qtrees.QNode(value,mirrorH(three),mirrorH(four), mirrorH(one), mirrorH(two))
      }
    }
   def rotateL(qt :QTree[Coords]):QTree[Coords]={
@@ -171,7 +183,7 @@ object Manipulation{
         QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
 
       case QNode(value,one,two,three,four) =>
-        QNode(value,rotateL(two),rotateL(four), rotateL(one), rotateL(three))
+        qtrees.QNode(value,rotateL(two),rotateL(four), rotateL(one), rotateL(three))
     }
   }
 
@@ -182,7 +194,7 @@ object Manipulation{
         QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
 
       case QNode(value,one,two,three,four) =>
-        QNode(value,rotateL(two),rotateL(four), rotateL(one), rotateL(three))
+        qtrees.QNode(value,rotateL(two),rotateL(four), rotateL(one), rotateL(three))
     }
   }
 
@@ -228,7 +240,7 @@ object Manipulation{
         QLeaf((value,f(color)))
 
       case QNode(value,one,two,three,four) =>
-        QNode(value,mapColourEffect(f,one),mapColourEffect(f,two),mapColourEffect(f,three),mapColourEffect(f,four))
+        qtrees.QNode(value,mapColourEffect(f,one),mapColourEffect(f,two),mapColourEffect(f,three),mapColourEffect(f,four))
 
     }
   }

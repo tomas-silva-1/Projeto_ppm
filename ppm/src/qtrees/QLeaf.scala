@@ -1,3 +1,3 @@
-package package1
+package qtrees
 
 case class QLeaf[A, B](value: B) extends QTree[A]

@@ -1,3 +1,3 @@
-package package1
+package qtrees
 
 trait QTree[+A]
