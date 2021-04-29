@@ -53,7 +53,7 @@ object Example{
           def aux1( cord:Coords): Unit = {
             def aux2( cord:Coords): Unit = {
               if(cord._1._2<=y2){
-                list(cord._1._1)(cord._1._2) = ImageUtil.encodeRgb(c.getRed,c.getGreen,c.getBlue)
+                list(cord._1._2)(cord._1._1) = ImageUtil.encodeRgb(c.getRed,c.getGreen,c.getBlue)
                 aux2(((cord._1._1,cord._1._2+1),(x2,y2)))
               }else{
                 aux1(((cord._1._1+1,y1),(x2,y2)))
