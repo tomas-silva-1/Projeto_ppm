@@ -139,6 +139,16 @@ object Manipulation{
       }
     }
   }*/
+  def sumCoords(coords1: Coords, coords2: Coords): Coords={
+    if(coords2._1._1 < coords1._1._1 ){
+      (((coords2._1._1 + coords1._1._1),(coords2._1._2)),((coords2._1._1 + coords1._1._1),(coords2._2._2)))
+    }else {
+     // println(coords1)
+      //println(coords2)
+      println(((( coords2._1._1 - coords1._2._1 + 1), (coords2._1._2)), ((coords2._1._1 - coords2._2._1 +1 ), (coords2._2._2))))
+      ((( coords2._1._1 - coords1._2._1 + 1), (coords2._1._2)), ((coords2._1._1 - coords2._2._1 +1 ), (coords2._2._2)))
+    }
+  }
 
   def newQTree(qt:QTree[Coords], qt2:QTree[Coords]):QTree[Coords]={
     qt match{
@@ -146,7 +156,7 @@ object Manipulation{
       case QLeaf((value,color: Color)) => QLeaf(cords(qt2),color)
       case QNode(value,one,two,three,four) => {
         val c = new Color(0,0,0)
-        QNode(cords(qt2),newQTree(one,QLeaf(((2,0),(2,0)),c)),newQTree(two,QLeaf(((3,0),(3,0)),c)),newQTree(three,QLeaf(((2,1),(2,1)),c)),newQTree(four,QLeaf(((3,1),(3,1)),c)))
+        QNode(cords(qt2),newQTree(one,QLeaf(sumCoords(cords(qt2),cords(one)),c)),newQTree(two,QLeaf(sumCoords(cords(qt2),cords(two)),c)),newQTree(three,QLeaf(sumCoords(cords(qt2),cords(three)),c)),newQTree(four,QLeaf(sumCoords(cords(qt2),cords(four)),c)))
       }
     }
   }
