@@ -21,11 +21,20 @@ object main {
     image.map(_.toList).toList})
 
   val example = Example(qt)
-  val qt1 :QTree[Coords] = example.scale(100)
+  val qt1 :QTree[Coords] = example.mapColourEffectContrast()
+  val qt5 :QTree[Coords] = example.mapColourEffectSepia()
   println(qt1)
   val ex2 = Example(qt1)
+  val ex3 = Example(qt5)
+  val ex4 = Example (qt2)
+  val qt6 = ex4.mapColourEffectSepia()
+  val ex6 = Example(qt6)
   val bit2 : BitMap= example.makeBitMap()
   val bit3 : BitMap= ex2.makeBitMap()
+  val bit4 :BitMap = ex3.makeBitMap()
+  val bit5 : BitMap = ex6.makeBitMap()
+
+
 
   def main(args: Array[String]): Unit = {
 
@@ -39,7 +48,8 @@ object main {
     bit.generateImageFromBitMap("newImage.png")
     bit2.generateImageFromBitMap("newImage2.png")
     bit3.generateImageFromBitMap("image3.png")
-
+    bit4.generateImageFromBitMap("image4.png")
+    bit5.generateImageFromBitMap("img5.png")
 
     println(bit)
     println(bit2)

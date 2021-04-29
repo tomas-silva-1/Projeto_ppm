@@ -153,7 +153,7 @@ object Example{
       }
   }
 
-  def noise(c:Color/*,r: RandomWithState */):Color={
+  def noise(c:Color, r: RandomWithState):Color={
     val random = rand(r)
     if(random._1 == 0){
       new Color(max(c.getRed - 100,0),max(c.getGreen - 100,0),max(c.getBlue - 100,0))
@@ -178,7 +178,7 @@ object Example{
     val r = ((c.getRed * .393) + (c.getGreen *.769) + (c.getBlue * .189)).toInt
     val g = ((c.getRed * .349) + (c.getGreen *.686) + (c.getBlue * .168)).toInt
     val b = ((c.getRed * .272) + (c.getGreen *.534) + (c.getBlue * .131)).toInt
-    new Color(r,g,b)
+    new Color(min(max(r,0),255),min(max(g,0),255),min(max(b,0),255))
   }
 
   def mapColourEffect(f:Color => Color, qt:QTree[Coords]):QTree[Coords] = {
@@ -189,6 +189,17 @@ object Example{
 
       case QNode(value,one,two,three,four) =>
         QNode(value,mapColourEffect(f,one),mapColourEffect(f,two),mapColourEffect(f,three),mapColourEffect(f,four))
+
+    }
+  }
+  def mapColourEffectNoise(f:(Color,RandomWithState) =>(Color,RandomWithState) , qt:QTree[Coords]):QTree[Coords] = {
+    qt match {
+      case QEmpty=> QEmpty
+      case QLeaf((value,color:Color)) =>
+        QLeaf((value,f(color)._1))
+
+      case QNode(value,one,two,three,four) =>
+        QNode(value,mapColourEffectNoise(f,one),mapColourEffectNoise(f,two),mapColourEffectNoise(f,three),mapColourEffectNoise(f,four))
 
     }
   }
