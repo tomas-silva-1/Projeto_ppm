@@ -11,19 +11,18 @@ case class Example[A](myField: QTree[Coords]){
   def mirrorH():QTree[Coords] = Example.mirrorH(this.myField)
   def rotateL():QTree[Coords] = Example.rotateL(this.myField)
   def rotateR():QTree[Coords] = Example.rotateR(this.myField)
-  def mapColourEffectNoise():QTree[Coords] = Example.mapColourEffect(Example.noise,this.myField)
+  def mapColourEffectNoise(r:MyRandom):QTree[Coords] = Example.mapColourEffectNoise(Example.noise,this.myField,r)
   def mapColourEffectContrast():QTree[Coords] = Example.mapColourEffect(Example.contrast,this.myField)
   def mapColourEffectSepia():QTree[Coords] = Example.mapColourEffect(Example.sepia,this.myField)
 }
 
 object Example{
 
-  val r = MyRandom(2)
   type Point = (Int , Int)
   type Coords = (Point, Point)
   type Section = (Coords, Color)
 
-   /*def makeQTree[A](b: BitMap):QTree[Coords]={
+   def makeQTree[A](b: BitMap):QTree[Coords]={
      val ySize = b.getListOfList().length
      val xSize = b.getListOfList().head.length
 
@@ -31,7 +30,7 @@ object Example{
 
      }
 
-  }*/
+  }
 
   def qTreeSize(qt:QTree[Coords]):(Int,Int)={
     qt match {
@@ -153,9 +152,8 @@ object Example{
       }
   }
 
-  def noise(c:Color, r: RandomWithState):Color={
-    val random = rand(r)
-    if(random._1 == 0){
+  def noise(c:Color, i:Int):Color={
+    if(i == 0){
       new Color(max(c.getRed - 100,0),max(c.getGreen - 100,0),max(c.getBlue - 100,0))
     }else{
       c
@@ -192,36 +190,36 @@ object Example{
 
     }
   }
-  def mapColourEffectNoise(f:(Color,RandomWithState) =>(Color,RandomWithState) , qt:QTree[Coords]):QTree[Coords] = {
+  /*def mapColourEffectNoise(f:(Color,RandomWithState) =>(Color,RandomWithState) , qt:QTree[Coords], r:RandomWithState):QTree[Coords] = {
     qt match {
       case QEmpty=> QEmpty
       case QLeaf((value,color:Color)) =>
         QLeaf((value,f(color)._1))
 
       case QNode(value,one,two,three,four) =>
-        QNode(value,mapColourEffectNoise(f,one),mapColourEffectNoise(f,two),mapColourEffectNoise(f,three),mapColourEffectNoise(f,four))
+        val random = rand(r)
+        QNode(value,mapColourEffectNoise(f,one,random._2),mapColourEffectNoise(f,two,random._2),mapColourEffectNoise(f,three,random._2),mapColourEffectNoise(f,four,random._2))
 
     }
-  }
+  }*/
 
-  /*def change(f:Color => Color, list:List[Int]): List[Int]= {
-    list map (k => { val v1 = ImageUtil.decodeRgb(k).toList
-      val c1: Color = f(new Color(v1(0),v1(1),v1(2)))
-      ImageUtil.encodeRgb(c1.getRed,c1.getGreen,c1.getBlue)} )
-  }
-
-  def mapColourEffect2(f:Color => Color, qt:QTree[Coords]):QTree[Coords] = {
-    val bit = makeBitMap(qt)
-    def aux(f:Color => Color, l:List[List[Int]]):List[List[Int]] = {
+  def mapColourEffectNoise(f:(Color,Int) => Color, qt:QTree[Coords], r:RandomWithState):QTree[Coords] = {
+    val list = makeBitMap(qt).getListOfList()
+    def aux(f:(Color,Int) => Color, l:List[List[Int]],random:RandomWithState): List[List[Int]] = {
       l match {
         case Nil => List()
-        case x::xs => (change(f,x) ++ aux(f,xs))
+        case x::xs =>{
+          val ra= rand(random)
+          (x map (z => { val v1 = ImageUtil.decodeRgb(z).toList
+            val c1: Color = f(new Color(v1(0),v1(1),v1(2)),ra._1)
+            ImageUtil.encodeRgb(c1.getRed,c1.getGreen,c1.getBlue)} )) :: aux(f,xs,ra._2)
+        }
       }
     }
-    val newList = aux(f,list)
+    val newList = aux(noise,list,r)
     val bit = new BitMap(newList)
     makeQTree(bit)
-  }*/
+  }
 
 }
 
