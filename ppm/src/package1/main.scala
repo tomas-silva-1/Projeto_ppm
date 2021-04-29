@@ -30,9 +30,10 @@ object main {
   val ex1 = Example(qt3)
   val bit3 = ex1.makeBitMap()
 
-  /*val qt4 = exa.mirrorV()
+  val qt4 = exa.mirrorV()
   val ex2 = Example(qt4)
-  val bit4 = ex2.makeBitMap()*/
+  val bit4 = ex2.makeBitMap()
+  val bitOrig = exa.makeBitMap()
 
 
   def main(args: Array[String]): Unit = {
@@ -41,7 +42,8 @@ object main {
     bit.generateImageFromBitMap("image.png")
     bit2.generateImageFromBitMap("image2.png")
     bit3.generateImageFromBitMap("image3.png")
-    /*bit4.generateImageFromBitMap("image4.png")*/
+    bit4.generateImageFromBitMap("image4.png")
+    bitOrig.generateImageFromBitMap("imageOrig.png")
 
     /*println(bit)
     println(bit2)*/

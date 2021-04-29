@@ -11,7 +11,7 @@ case class Example[A](myField: QTree[Coords]){
   def mirrorH():QTree[Coords] = Manipulation.mirrorH(this.myField)
   def rotateL():QTree[Coords] = Manipulation.rotateL(this.myField)
   def rotateR():QTree[Coords] = Manipulation.rotateR(this.myField)
-  def mapColourEffectNoise():QTree[Coords] = Manipulation.mapColourEffectNoise(Manipulation.noise,this.myField)
+ // def mapColourEffectNoise():QTree[Coords] = Manipulation.mapColourEffectNoise(Manipulation.noise,this.myField)
   def mapColourEffectContrast():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.contrast,this.myField)
   def mapColourEffectSepia():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.sepia,this.myField)
 }
@@ -27,7 +27,7 @@ object Manipulation{
     new BitMap(image.map(_.toList).toList)
   }
 
-  def makeQTree[A](b: BitMap):QTree[Coords]={
+  /* def makeQTree[A](b: BitMap):QTree[Coords]={
     val ySize = b.getListOfList().length
     val xSize = b.getListOfList().head.length
 
@@ -35,7 +35,7 @@ object Manipulation{
 
     }
 
-  }
+  }   */
 
   def qTreeSize(qt:QTree[Coords]):(Int,Int)={
     qt match {
@@ -48,7 +48,6 @@ object Manipulation{
 
   def makeBitMap(qt:QTree[Coords]):BitMap={
    val list: Array[Array[Int]] = Array.ofDim[Int](qTreeSize(qt)._1,qTreeSize(qt)._2)
-    println( qTreeSize(qt) )
     def makeArray(qt2:QTree[Coords]):Unit={
       qt2 match {
         case QEmpty => Nil
@@ -130,7 +129,6 @@ object Manipulation{
        case QEmpty=> QEmpty
        case QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color)) =>
          QLeaf((((x1: Int, y1: Int), (x2: Int, y2: Int)),color: Color))
-
        case QNode(value,one,two,three,four) => {
          val newOne = newQTree(two,one)
          val newTwo = newQTree(one,two)
@@ -232,7 +230,7 @@ object Manipulation{
     }
   }*/
 
-  def mapColourEffectNoise(f:(Color,Int) => Color, qt:QTree[Coords]):QTree[Coords] = {
+ /* def mapColourEffectNoise(f:(Color,Int) => Color, qt:QTree[Coords]):QTree[Coords] = {
     val r = MyRandom(2)
     val list = makeBitMap(qt).getListOfList()
     def aux(f:(Color,Int) => Color, l:List[List[Int]],random:RandomWithState): List[List[Int]] = {
@@ -249,7 +247,7 @@ object Manipulation{
     val newList = aux(noise,list,r)
     val bit = new BitMap(newList)
     makeQTree(bit)
-  }
+  } */
 
 }
 
