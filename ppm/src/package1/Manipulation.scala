@@ -6,7 +6,7 @@ import random.RandomWithState
 
 import java.awt.Color
 
-case class Example[A](myField: QTree[Coords]){
+case class Manipulation[A](myField: QTree[Coords]){
   def makeBitMap(): BitMap = Manipulation.makeBitMap(this.myField)
   def scale(d:Double):QTree[Coords] = Manipulation.scale(d,this.myField)
   def mirrorV():QTree[Coords] = Manipulation.mirrorV(this.myField)
