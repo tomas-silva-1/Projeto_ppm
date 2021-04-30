@@ -30,7 +30,7 @@
          </items>
       </ToolBar>
       <ScrollBar layoutX="771.0" layoutY="40.0" orientation="VERTICAL" prefHeight="493.0" prefWidth="14.0" />
-      <Pane layoutX="141.0" layoutY="80.0" prefHeight="373.0" prefWidth="587.0">
+      <Pane layoutX="161.0" layoutY="90.0" prefHeight="363.0" prefWidth="567.0">
          <children>
             <MediaView fitHeight="200.0" fitWidth="200.0" layoutX="118.0" layoutY="69.0" />
          </children></Pane>

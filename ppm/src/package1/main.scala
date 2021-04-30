@@ -1,7 +1,6 @@
 package package1
 
 import package1.Manipulation.{Coords, Point, Section}
-import package1.Functions.Album
 import qtrees.{QLeaf, QNode, QTree}
 
 import java.awt.Color
@@ -47,18 +46,24 @@ object main {
   val ex2 = Manipulation(qt4)
   val bit4 = ex2.makeBitMap()
 
-
   val bitOrig = exa.makeBitMap()
+
 
 
   def main(args: Array[String]): Unit = {
 
+    val qt_ex = ex.makeQTree(bit)
+    val exL = Manipulation(qt_ex)
 
+    val bit_ex = exL.makeBitMap()
    // bit.generateImageFromBitMap("image.png")
     //bit2.generateImageFromBitMap("image2.png")
     //bit3.generateImageFromBitMap("image3.png")
     bit4.generateImageFromBitMap(path + "image4.png")
     bitOrig.generateImageFromBitMap(path +"imageOrig.png")
+    bit_ex.generateImageFromBitMap(path+"img2.png")
+
+    println(qt_ex)
 
     /*println(bit)
     println(bit2)*/

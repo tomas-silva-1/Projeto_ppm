@@ -7,6 +7,7 @@ import random.{MyRandom, RandomWithState}
 import java.awt.Color
 
 case class Manipulation[A](myField: QTree[Coords]){
+  def makeQTree(b: BitMap): QTree[Coords]= Manipulation.makeQTree(b)
   def makeBitMap(): BitMap = Manipulation.makeBitMap(this.myField)
   def scale(d:Double):QTree[Coords] = Manipulation.scale(d,this.myField)
   def mirrorV():QTree[Coords] = Manipulation.mirrorV(this.myField)
@@ -16,6 +17,7 @@ case class Manipulation[A](myField: QTree[Coords]){
   def mapColourEffectNoise():QTree[Coords] = Manipulation.mapColourEffectNoise(Manipulation.noise,this.myField)
   def mapColourEffectContrast():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.contrast,this.myField)
   def mapColourEffectSepia():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.sepia,this.myField)
+
 }
 
 object Manipulation{
