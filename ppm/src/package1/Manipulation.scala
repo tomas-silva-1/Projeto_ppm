@@ -50,7 +50,7 @@ object Manipulation{
         (true, i)
       }
     }
-    aux1(((c._1._1,c._1._2),(c._2._1,c._2._2)),map.getListOfList()(c._1._1)(c._1._2))
+    aux1(((c._1._1,c._1._2),(c._2._1,c._2._2)),map.getListOfList()(c._1._2)(c._1._1))
   }
 
   def makeColor(i:Int):Color={
