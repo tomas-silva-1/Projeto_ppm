@@ -32,7 +32,7 @@ object main {
   val bit = BitMap({val image : Array[Array[Int]] = ImageUtil.readColorImage(path + "img.png")
     image.map(_.toList).toList})
 
-  val ex = Example(qt)
+  val ex = Manipulation(qt)
 
   /*val bit2 : BitMap= ex.makeBitMap()
 
@@ -42,9 +42,9 @@ object main {
   val bit3 = ex1.makeBitMap()*/
 
 
-  val exa = Example(qt2)
+  val exa = Manipulation(qt2)
   val qt4 = exa.rotateR()
-  val ex2 = Example(qt4)
+  val ex2 = Manipulation(qt4)
   val bit4 = ex2.makeBitMap()
 
 

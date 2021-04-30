@@ -1,17 +1,18 @@
 package package1
 
-import package1.Functions.Album
+
+import package1.ImagesAlbum.Album
 
 case class ImagesAlbum( list: Album ){
-  def add(st:String,bit:BitMap):Album = Functions.add(st,bit,this.list)
-  def remove(st:String):Album = Functions.remove(st,this.list)
-  def get(st:String):(String,BitMap) = Functions.get(st,this.list)
-  def editBitMap(st:String,bit:BitMap) :Album = Functions.editBitMap(st,bit,this.list)
-  def editName(st:String, newSt:String):Album = Functions.editName(st,newSt,this.list)
-  def changePositions(st:String,st2:String):Album = Functions.changePositions(st,st2,this.list)
+  def add(st:String,bit:BitMap):Album = ImagesAlbum.add(st,bit,this.list)
+  def remove(st:String):Album = ImagesAlbum.remove(st,this.list)
+  def get(st:String):(String,BitMap) = ImagesAlbum.get(st,this.list)
+  def editBitMap(st:String,bit:BitMap) :Album = ImagesAlbum.editBitMap(st,bit,this.list)
+  def editName(st:String, newSt:String):Album = ImagesAlbum.editName(st,newSt,this.list)
+  def changePositions(st:String,st2:String):Album = ImagesAlbum.changePositions(st,st2,this.list)
 }
 
-object Functions{
+object ImagesAlbum{
 
   type Album = List[(String,BitMap)]
 
