@@ -115,18 +115,6 @@ object Manipulation{
     }
   }
 
-
-  /*def sumCoords(coords1: Coords, coords2: Coords): Coords={
-    if(coords2._1._1 < coords1._1._1 ){
-      (((coords2._1._1 + coords1._1._1),(coords2._1._2)),((coords2._1._1 + coords1._1._1),(coords2._2._2)))
-    }else {
-     // println(coords1)
-      //println(coords2)
-      println(((( coords2._1._1 - coords1._2._1 + 1), (coords2._1._2)), ((coords2._1._1 - coords2._2._1 +1 ), (coords2._2._2))))
-      ((( coords2._1._1 - coords1._2._1 + 1), (coords2._1._2)), ((coords2._1._1 - coords2._2._1 +1 ), (coords2._2._2)))
-    }
-  }*/
-
   def newQTree(qt:QTree[Coords],c2:Coords):QTree[Coords]={
     qt match{
       case QEmpty => QEmpty
@@ -137,7 +125,6 @@ object Manipulation{
         val cThree = ((c2._1._1,cOne._2._2 + 1),(cOne._2._1,c2._2._2))
         val cFour = (((((c2._1._1.toDouble+c2._2._1.toDouble)/2.toDouble) +0.5).toInt,(((c2._1._2.toDouble+c2._2._2.toDouble)/2.toDouble) +0.5).toInt),(c2._2._1,c2._2._2))
         QNode(c2,newQTree(one,cOne),newQTree(two,cTwo),newQTree(three,cThree),newQTree(four,cFour))
-        //QNode(cords(qt2),newQTree(one,QLeaf(sumCoords(cords(qt2),cords(one)),c)),newQTree(two,QLeaf(sumCoords(cords(qt2),cords(two)),c)),newQTree(three,QLeaf(sumCoords(cords(qt2),cords(three)),c)),newQTree(four,QLeaf(sumCoords(cords(qt2),cords(four)),c)))
       }
     }
   }
@@ -168,7 +155,7 @@ object Manipulation{
          val newTwo = newQTree(four,cords(two))
          val newThree = newQTree(one,cords(three))
          val newFour = newQTree(two,cords(four))
-         QNode(value,mirrorH(three),mirrorH(four), mirrorH(one), mirrorH(two))
+         QNode(value,mirrorH(newOne),mirrorH(newTwo), mirrorH(newThree), mirrorH(newFour))
        }
      }
    }
@@ -183,7 +170,7 @@ object Manipulation{
         val newTwo = newQTree(four,cords(two))
         val newThree = newQTree(one,cords(three))
         val newFour = newQTree(three,cords(four))
-        QNode(value,rotateL(two),rotateL(four), rotateL(one), rotateL(three))
+        QNode(value,rotateL(newOne),rotateL(newTwo), rotateL(newThree), rotateL(newFour))
       }
     }
   }
@@ -199,7 +186,7 @@ object Manipulation{
         val newTwo = newQTree(one,cords(two))
         val newThree = newQTree(four,cords(three))
         val newFour = newQTree(two,cords(four))
-        QNode(value,rotateL(three),rotateL(one), rotateL(four), rotateL(two))
+        QNode(value,rotateR(newOne),rotateR(newTwo), rotateR(newThree), rotateR(newFour))
       }
     }
   }

@@ -43,7 +43,7 @@ object main {
 
 
   val exa = Example(qt2)
-  val qt4 = exa.mirrorV()
+  val qt4 = exa.rotateR()
   val ex2 = Example(qt4)
   val bit4 = ex2.makeBitMap()
 
