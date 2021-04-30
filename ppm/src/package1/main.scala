@@ -29,7 +29,7 @@ object main {
   val l7: QLeaf[Coords, Section] = QLeaf((((2, 2): Point, (3, 3): Point): Coords, Color.yellow): Section)
   val qt2: QTree[Coords] = qtrees.QNode(((0, 0), (3, 3)), qt, l5, l6, qt_2)
 
-  val bit = BitMap({val image : Array[Array[Int]] = ImageUtil.readColorImage("C:\\Users\\tomas\\Documents\\Docs\\Iscte\\ppm\\projeto\\Projeto_ppm\\ppm\\src\\imagens\\img.png")
+  val bit = BitMap({val image : Array[Array[Int]] = ImageUtil.readColorImage(path + "img.png")
     image.map(_.toList).toList})
 
   val ex = Example(qt)
