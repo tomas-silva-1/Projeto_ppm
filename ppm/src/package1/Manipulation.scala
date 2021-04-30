@@ -44,9 +44,8 @@ object Manipulation{
       }
       if(cord._1._1 <= c._2._1) {
         aux2(((cord._1._1, cord._1._2), (c._2._1, c._2._2)),i)
-      }else{
-        (true, i)
       }
+      (true, i)
     }
     aux1(((c._1._1,c._1._2),(c._2._1,c._2._2)),map.getListOfList()(c._1._1)(c._1._2))
   }
