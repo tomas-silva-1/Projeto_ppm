@@ -132,7 +132,6 @@ object Manipulation{
       case QEmpty => QEmpty
       case QLeaf((value,color: Color)) => QLeaf(c2,color)
       case QNode(value,one,two,three,four) => {
-        val c = new Color(0,0,0)
         val cOne = ((c2._1._1,c2._1._2),((((c2._1._1+c2._2._1)/2) -0.5).toInt,(((c2._1._2+c2._2._2)/2) -0.5).toInt))
         val cTwo = ((cOne._1._1+1,c2._1._2),(c2._2._1,cOne._2._2))
         val cThree = ((c2._1._1,cOne._2._2 + 1),(cOne._1._1,c2._2._2))
@@ -153,7 +152,7 @@ object Manipulation{
          val newTwo = newQTree(one,cords(two))
          val newThree = newQTree(four,cords(three))
          val newFour = newQTree(three,cords(four))
-         QNode(value, mirrorV(newOne), mirrorV(newTwo), mirrorV(newThree), mirrorV(newFour))
+         QNode(value,/* mirrorV(*/newOne/*)*/, /*mirrorV(*/newTwo/*)*/, /*mirrorV(*/newThree/*)*/, /*mirrorV(*/newFour/*)*/)
        }
 
      }
