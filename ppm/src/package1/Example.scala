@@ -29,15 +29,51 @@ object Manipulation{
     new BitMap(image.map(_.toList).toList)
   }
 
-  /* def makeQTree[A](b: BitMap):QTree[Coords]={
+  def isLeaf(map: BitMap, c: Coords):(Boolean,Int)={
+    def aux1( cord:Coords,i:Int): (Boolean,Int) = {
+      def aux2( cord:Coords,i:Int): (Boolean,Int) = {
+        if(cord._1._2<=c._2._2){
+          if(map.getListOfList()(cord._1._2)(cord._1._1) == i) {
+            (false, i)
+          }else{
+            aux2(((cord._1._1,cord._1._2+1),(c._2._1,c._2._2)),i)
+          }
+        }else{
+          aux1(((cord._1._1+1,c._1._2),(c._2._1,c._2._2)),i)
+        }
+      }
+      if(cord._1._1 <= c._2._1) {
+        aux2(((cord._1._1, cord._1._2), (c._2._1, c._2._2)))
+      }else{
+        (true, i)
+      }
+    }
+    aux1(((c._1._1,c._1._2),(c._2._1,c._2._2)),map.getListOfList()(c._1._1)(c._1._2))
+  }
+
+  def makeColor(i:Int):Color={
+    val list = ImageUtil.decodeRgb(i)
+    new Color(list(0),list(1),list(2))
+  }
+
+  def makeQTree[A](b: BitMap):QTree[Coords]={
     val ySize = b.getListOfList().length
     val xSize = b.getListOfList().head.length
+    val c:Coords = ((0,0),(xSize,ySize))
 
-    def aux(xS:Int,yS:Int):QTree[Coords]={
-
+    def aux(c2:Coords):QTree[Coords]={
+      val cOne = ((c2._1._1,c2._1._2),((((c2._1._1.toDouble+c2._2._1.toDouble)/2.toDouble) -0.5).toInt,(((c2._1._2.toDouble+c2._2._2.toDouble)/2.toDouble) -0.5).toInt))
+      val cTwo = ((cOne._2._1+1,c2._1._2),(c2._2._1,cOne._2._2))
+      val cThree = ((c2._1._1,cOne._2._2 + 1),(cOne._2._1,c2._2._2))
+      val cFour = (((((c2._1._1.toDouble+c2._2._1.toDouble)/2.toDouble) +0.5).toInt,(((c2._1._2.toDouble+c2._2._2.toDouble)/2.toDouble) +0.5).toInt),(c2._2._1,c2._2._2))
+      if(isLeaf(b, c2)._1){
+        QLeaf(c2,makeColor(isLeaf(b,c2)._2))
+      }else{
+        QNode(c2,aux(cOne),aux(cTwo),aux(cThree),aux(cFour))
+      }
     }
-
-  }   */
+    aux(c)
+  }
 
   def qTreeSize(qt:QTree[Coords]):(Int,Int)={
     qt match {
