@@ -2,7 +2,7 @@ package package1
 
 import package1.Manipulation.Coords
 import qtrees.{QEmpty, QLeaf, QNode, QTree}
-import random.RandomWithState
+import random.{MyRandom, RandomWithState}
 
 import java.awt.Color
 
@@ -13,7 +13,7 @@ case class Manipulation[A](myField: QTree[Coords]){
   def mirrorH():QTree[Coords] = Manipulation.mirrorH(this.myField)
   def rotateL():QTree[Coords] = Manipulation.rotateL(this.myField)
   def rotateR():QTree[Coords] = Manipulation.rotateR(this.myField)
- // def mapColourEffectNoise():QTree[Coords] = Manipulation.mapColourEffectNoise(Manipulation.noise,this.myField)
+  def mapColourEffectNoise():QTree[Coords] = Manipulation.mapColourEffectNoise(Manipulation.noise,this.myField)
   def mapColourEffectContrast():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.contrast,this.myField)
   def mapColourEffectSepia():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.sepia,this.myField)
 }
@@ -33,7 +33,7 @@ object Manipulation{
     def aux1( cord:Coords,i:Int): (Boolean,Int) = {
       def aux2( cord:Coords,i:Int): (Boolean,Int) = {
         if(cord._1._2<=c._2._2){
-          if(map.getListOfList()(cord._1._2)(cord._1._1) == i) {
+          if(map.getListOfList()(cord._1._2)(cord._1._1) != i) {
             (false, i)
           }else{
             aux2(((cord._1._1,cord._1._2+1),(c._2._1,c._2._2)),i)
@@ -43,7 +43,7 @@ object Manipulation{
         }
       }
       if(cord._1._1 <= c._2._1) {
-        aux2(((cord._1._1, cord._1._2), (c._2._1, c._2._2)))
+        aux2(((cord._1._1, cord._1._2), (c._2._1, c._2._2)),i)
       }else{
         (true, i)
       }
@@ -59,7 +59,7 @@ object Manipulation{
   def makeQTree[A](b: BitMap):QTree[Coords]={
     val ySize = b.getListOfList().length
     val xSize = b.getListOfList().head.length
-    val c:Coords = ((0,0),(xSize,ySize))
+    val c:Coords = ((0,0),(xSize-1,ySize-1))
 
     def aux(c2:Coords):QTree[Coords]={
       val cOne = ((c2._1._1,c2._1._2),((((c2._1._1.toDouble+c2._2._1.toDouble)/2.toDouble) -0.5).toInt,(((c2._1._2.toDouble+c2._2._2.toDouble)/2.toDouble) -0.5).toInt))
@@ -286,7 +286,7 @@ object Manipulation{
     }
   }*/
 
- /* def mapColourEffectNoise(f:(Color,Int) => Color, qt:QTree[Coords]):QTree[Coords] = {
+  def mapColourEffectNoise(f:(Color,Int) => Color, qt:QTree[Coords]):QTree[Coords] = {
     val r = MyRandom(2)
     val list = makeBitMap(qt).getListOfList()
     def aux(f:(Color,Int) => Color, l:List[List[Int]],random:RandomWithState): List[List[Int]] = {
@@ -303,7 +303,7 @@ object Manipulation{
     val newList = aux(noise,list,r)
     val bit = new BitMap(newList)
     makeQTree(bit)
-  } */
+  }
 
 }
 
