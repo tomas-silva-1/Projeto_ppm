@@ -15,7 +15,7 @@ case class Manipulation[A](myField: QTree[Coords]){
   def mirrorH():QTree[Coords] = Manipulation.mirrorH(this.myField)
   def rotateL():QTree[Coords] = Manipulation.rotateL(this.myField)
   def rotateR():QTree[Coords] = Manipulation.rotateR(this.myField)
-  def mapColourEffectNoise():QTree[Coords] = Manipulation.mapColourEffectNoise(Manipulation.noise,this.myField,MyRandom(2))
+  def mapColourEffectNoise():QTree[Coords] = Manipulation.mapColourEffectNoise(this.myField,MyRandom(2),0)
   def mapColourEffectContrast():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.contrast,this.myField)
   def mapColourEffectSepia():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.sepia,this.myField)
 
@@ -151,7 +151,7 @@ object Manipulation{
       (px, py)
     }else{
       val px: Point = ((c._1._1 * s).toInt, (c._1._2 * s).toInt)
-      val py: Point = ((c._2._1 - (s - 1)).toInt, (c._2._2 - (s - 1)).toInt)
+      val py: Point = ((((c._1._1.toDouble+c._2._1.toDouble)/s) -0.5).toInt, (((c._1._1.toDouble+c._2._1.toDouble)/s) -0.5).toInt)
       (px, py)
     }
   }
@@ -278,8 +278,8 @@ object Manipulation{
     new Color(min(max(r,0),255),min(max(g,0),255),min(max(b,0),255))
   }
 
-  def noise(c:Color, r:RandomWithState):Color={
-    if(r == 0){
+  def noise(c:Color, i:Int):Color={
+    if(i == 0){
       new Color(max(c.getRed - 100,0),max(c.getGreen - 100,0),max(c.getBlue - 100,0))
     }else{
       c
@@ -305,16 +305,19 @@ object Manipulation{
     }
   }
 
-  def mapColourEffectNoise(f:(Color,RandomWithState) =>Color , qt:QTree[Coords], r:RandomWithState):QTree[Coords] = {
+  def mapColourEffectNoise(qt:QTree[Coords], r:RandomWithState, i:Int):QTree[Coords] = {
     qt match {
       case QEmpty=> QEmpty
       case QLeaf((value,color:Color)) =>
-        QLeaf((value,f(color,r)))
+        val r1 = rand(r)
+        QLeaf((value,noise(color,r1._1)))
 
       case QNode(value,one,two,three,four) =>
-        val random = rand(r)
-        QNode(value,mapColourEffectNoise(f,one,random._2),mapColourEffectNoise(f,two,random._2),mapColourEffectNoise(f,three,random._2),mapColourEffectNoise(f,four,random._2))
-
+        val r1 = rand(r)
+        val r2 = rand(r1._2)
+        val r3 = rand(r2._2)
+        val r4 = rand(r3._2)
+        QNode(value,mapColourEffectNoise(one,r1._2,r1._1),mapColourEffectNoise(two,r2._2,r2._1),mapColourEffectNoise(three,r3._2,r3._1),mapColourEffectNoise(four,r4._2,r4._1))
     }
   }
 
