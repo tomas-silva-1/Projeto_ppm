@@ -1,22 +1,19 @@
 package package1
 
 
-import package1.ImagesAlbum.Album
-
-case class ImagesAlbum( list: Album ){
-  def add(st:String,bit:BitMap):Album = ImagesAlbum.add(st,bit,this.list)
-  def remove(st:String):Album = ImagesAlbum.remove(st,this.list)
+case class ImagesAlbum( list : List[(String,BitMap)] ){
+  def getlist():List[(String,BitMap)] = this.list
+  def add(st:String,bit:BitMap):List[(String,BitMap)] = ImagesAlbum.add(st,bit,this.list)
+  def remove(st:String):List[(String,BitMap)]= ImagesAlbum.remove(st,this.list)
   def get(st:String):(String,BitMap) = ImagesAlbum.get(st,this.list)
-  def editBitMap(st:String,bit:BitMap) :Album = ImagesAlbum.editBitMap(st,bit,this.list)
-  def editName(st:String, newSt:String):Album = ImagesAlbum.editName(st,newSt,this.list)
-  def changePositions(st:String,st2:String):Album = ImagesAlbum.changePositions(st,st2,this.list)
+  def editBitMap(st:String,bit:BitMap) :List[(String,BitMap)] = ImagesAlbum.editBitMap(st,bit,this.list)
+  def editName(st:String, newSt:String):List[(String,BitMap)] = ImagesAlbum.editName(st,newSt,this.list)
+  def changePositions(st:String,st2:String):List[(String,BitMap)] = ImagesAlbum.changePositions(st,st2,this.list)
 }
 
 object ImagesAlbum{
 
-  type Album = List[(String,BitMap)]
-
-  def add(st:String,bit:BitMap,ab:Album):Album={
+  def add(st:String,bit:BitMap,ab:List[(String,BitMap)]):List[(String,BitMap)]={
     val tuple = (st,bit)
     ab match{
       case Nil => List(tuple)
@@ -24,35 +21,35 @@ object ImagesAlbum{
     }
   }
 
-  def remove(st:String,ab:Album): Album ={
+  def remove(st:String,ab:List[(String,BitMap)]): List[(String,BitMap)] ={
     ab match{
       case Nil => Nil
       case x::xs => if( x._1.equalsIgnoreCase(st) ) xs else x :: remove(st,xs)
     }
   }
 
-  def get(st:String,ab:Album): (String,BitMap) ={
+  def get(st:String,ab:List[(String,BitMap)]): (String,BitMap) ={
     ab match{
       case Nil => (st,new BitMap(List()))
       case x::xs => if( x._1.equalsIgnoreCase(st) ) x else get(st,xs)
     }
   }
 
-  def editBitMap(st:String,bit:BitMap,ab:Album):Album={
+  def editBitMap(st:String,bit:BitMap,ab:List[(String,BitMap)]):List[(String,BitMap)]={
     ab match{
       case Nil => Nil
       case x::xs => if( x._1.equalsIgnoreCase(st) ) (st,bit) :: xs else x :: editBitMap(st,bit,xs)
     }
   }
 
-  def editName(st:String, newSt:String,ab:Album):Album={
+  def editName(st:String, newSt:String,ab:List[(String,BitMap)]):List[(String,BitMap)]={
     ab match{
       case Nil => Nil
       case x::xs => if( x._1.equalsIgnoreCase(st) ) (newSt,x._2) :: xs else x :: editName(st,newSt,xs)
     }
   }
 
-  def changePositions(st:String,st2:String,ab:Album):Album={
+  def changePositions(st:String,st2:String,ab:List[(String,BitMap)]):List[(String,BitMap)]={
     val tuple1= get(st,ab)
     val tuple2= get(st2,ab)
     ab match{

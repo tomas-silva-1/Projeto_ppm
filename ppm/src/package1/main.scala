@@ -1,5 +1,6 @@
 package package1
 
+import package1.ImagesAlbum.Album
 import package1.Manipulation.{Coords, Point, Section}
 import qtrees.{QLeaf, QNode, QTree}
 
@@ -47,6 +48,9 @@ object main {
   val bit4 = ex2.makeBitMap()
 
   val bitOrig = exa.makeBitMap()
+
+  /*val i = ImagesAlbum(List())
+  val i2 = ImagesAlbum(i.add("picasso",bit4))*/
 
 
 
