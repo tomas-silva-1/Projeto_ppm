@@ -32,7 +32,7 @@
       <ScrollBar layoutX="771.0" layoutY="40.0" orientation="VERTICAL" prefHeight="493.0" prefWidth="14.0" />
       <Pane layoutX="161.0" layoutY="90.0" prefHeight="363.0" prefWidth="567.0">
          <children>
-            <MediaView fitHeight="200.0" fitWidth="200.0" layoutX="118.0" layoutY="69.0" />
+            <MediaView fx:id="estamrds" fitHeight="200.0" fitWidth="200.0" layoutX="184.0" layoutY="61.0" />
          </children></Pane>
    </children>
 </AnchorPane>

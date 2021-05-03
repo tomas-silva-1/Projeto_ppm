@@ -52,16 +52,20 @@ object main {
 
   def main(args: Array[String]): Unit = {
 
-    val qt_ex = ex.makeQTree(bit)
+    val qt_ex = ex.makeQTree(bitOrig)
     val exL = Manipulation(qt_ex)
-
     val bit_ex = exL.makeBitMap()
+    val qtumasmrds=exa.mapColourEffectNoise()
+    val ex_uma= Manipulation(qtumasmrds)
+    val bit_uma= ex_uma.makeBitMap()
    // bit.generateImageFromBitMap("image.png")
     //bit2.generateImageFromBitMap("image2.png")
     //bit3.generateImageFromBitMap("image3.png")
     bit4.generateImageFromBitMap(path + "image4.png")
     bitOrig.generateImageFromBitMap(path +"imageOrig.png")
     bit_ex.generateImageFromBitMap(path+"img2.png")
+    bit_uma.generateImageFromBitMap(path+"img3.png")
+
 
     println(qt_ex)
 

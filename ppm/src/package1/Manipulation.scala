@@ -229,22 +229,6 @@ object Manipulation{
     }
   }
 
-  def rand(random: RandomWithState): (Int,RandomWithState) ={
-    val i = random.nextInt(2)
-      i._1 match{
-        case 0 => (0,i._2)
-        case 1 => (1,i._2)
-      }
-  }
-
-  def noise(c:Color, i:Int):Color={
-    if(i == 0){
-      new Color(max(c.getRed - 100,0),max(c.getGreen - 100,0),max(c.getBlue - 100,0))
-    }else{
-      c
-    }
-  }
-
   def max(x:Int,y:Int): Int = { if(x>=y) x else y}
   def min(x:Int,y:Int): Int = { if(x<=y) x else y}
 
@@ -275,19 +259,20 @@ object Manipulation{
 
     }
   }
-  /*def mapColourEffectNoise(f:(Color,RandomWithState) =>(Color,RandomWithState) , qt:QTree[Coords], r:RandomWithState):QTree[Coords] = {
-    qt match {
-      case QEmpty=> QEmpty
-      case QLeaf((value,color:Color)) =>
-        QLeaf((value,f(color)._1))
-
-      case QNode(value,one,two,three,four) =>
-        val random = rand(r)
-        QNode(value,mapColourEffectNoise(f,one,random._2),mapColourEffectNoise(f,two,random._2),mapColourEffectNoise(f,three,random._2),mapColourEffectNoise(f,four,random._2))
-
+  def noise(c:Color, i:Int):Color={
+    if(i == 0){
+      new Color(max(c.getRed - 100,0),max(c.getGreen - 100,0),max(c.getBlue - 100,0))
+    }else{
+      c
     }
-  }*/
-
+  }
+  def rand(random: RandomWithState): (Int,RandomWithState) ={
+    val i = random.nextInt(2)
+    i._1 match{
+      case 0 => (0,i._2)
+      case 1 => (1,i._2)
+    }
+  }
   def mapColourEffectNoise(f:(Color,Int) => Color, qt:QTree[Coords]):QTree[Coords] = {
     val r = MyRandom(2)
     val list = makeBitMap(qt).getListOfList()
