@@ -8,14 +8,14 @@
    <children>
       <ToolBar prefHeight="35.0" prefWidth="785.0">
          <items>
-            <Button fx:id="criarAlbum" mnemonicParsing="false" onMouseClicked="#cria_Album" text="Criar Album" />
-            <Button fx:id="botao2" mnemonicParsing="false" onMouseClicked="#carregaImagem" onMousePressed="#carregaImagem" text="Button" />
+            <Button fx:id="criarAlbum" mnemonicParsing="false" onMousePressed="#carrega_Album" text="Carregar Album" />
+            <Button fx:id="botao2" mnemonicParsing="false" onMousePressed="#carregaImagem" text="Imagem" />
             <Button fx:id="botao3" mnemonicParsing="false" text="Button" />
          </items>
       </ToolBar>
       <ScrollBar layoutX="771.0" layoutY="32.0" orientation="VERTICAL" prefHeight="494.0" prefWidth="14.0" />
-      <ImageView fx:id="imagem" fitHeight="371.0" fitWidth="584.0" layoutX="166.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true" />
-      <ListView fx:id="menu" layoutY="35.0" prefHeight="501.0" prefWidth="144.0" />
+      <ImageView fx:id="imagem" fitHeight="371.0" fitWidth="584.0" layoutX="166.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" />
+      <ListView fx:id="album" layoutY="38.0" prefHeight="501.0" prefWidth="144.0" />
       <ToolBar layoutX="144.0" layoutY="35.0" prefHeight="40.0" prefWidth="628.0">
         <items>
           <Button fx:id="rotateR" mnemonicParsing="false" text="Rodar direita" />

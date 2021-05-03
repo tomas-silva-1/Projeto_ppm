@@ -9,7 +9,8 @@ import java.awt.Color
 
 object main {
 
-  val path: String = "C:\\Users\\tomas\\Documents\\Docs\\Iscte\\ppm\\projeto\\Projeto_ppm\\ppm\\src\\imagens\\"
+  //val path: String = "C:\\Users\\tomas\\Documents\\Docs\\Iscte\\ppm\\projeto\\Projeto_ppm\\ppm\\src\\imagens\\"
+  val path: String = "C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"
 
 
   val l1: QLeaf[Coords, Section] = QLeaf((((0, 0): Point, (0, 0): Point): Coords, Color.red): Section)
@@ -57,6 +58,10 @@ object main {
 
   def main(args: Array[String]): Unit = {
 
+    val qt5 = exa.scale(0.5)
+    val ex5 = Manipulation(qt5)
+    val bit5 = ex5.makeBitMap()
+
     val qt_ex = ex.makeQTree(bitOrig)
     val exL = Manipulation(qt_ex)
     val bit_ex = exL.makeBitMap()
@@ -70,6 +75,7 @@ object main {
     bitOrig.generateImageFromBitMap(path +"imageOrig.png")
     bit_ex.generateImageFromBitMap(path+"img2.png")
     bit_uma.generateImageFromBitMap(path+"img3.png")
+    bit5.generateImageFromBitMap(path + "image5.png")
 
 
     println(qt_ex)

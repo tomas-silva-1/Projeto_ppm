@@ -151,7 +151,7 @@ object Manipulation{
       (px, py)
     }else{
       val px: Point = ((c._1._1 * s).toInt, (c._1._2 * s).toInt)
-      val py: Point = ((((c._1._1.toDouble+c._2._1.toDouble)/s) -0.5).toInt, (((c._1._1.toDouble+c._2._1.toDouble)/s) -0.5).toInt)
+      val py: Point = ((((c._1._1.toDouble+c._2._1.toDouble)*s) -1.0).toInt, (((c._1._2.toDouble+c._2._2.toDouble)*s) -1.0).toInt)
       (px, py)
     }
   }
