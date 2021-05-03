@@ -1,6 +1,7 @@
 package package1
 
 
+import javafx.application.Application
 import package1.Manipulation.{Coords, Point, Section}
 import qtrees.{QLeaf, QNode, QTree}
 

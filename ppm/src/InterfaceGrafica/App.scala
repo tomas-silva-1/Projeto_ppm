@@ -1,4 +1,4 @@
-package package1
+package InterfaceGrafica
 
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
@@ -8,7 +8,7 @@ import javafx.stage.Stage
 class App extends Application{
   override def start(primaryStage: Stage): Unit = {
     primaryStage.setTitle("Albuns")
-      val fxmlLoader= new FXMLLoader(getClass.getResource("C:\\Users\\tomas\\Documents\\Docs\\Iscte\\ppm\\projeto\\Projeto_ppm\\ppm\\src\\InterfaceGrafica\\Controller.fxml"))
+      val fxmlLoader= new FXMLLoader(getClass.getResource("Controller.fxml"))
     val mainViewRoot : Parent = fxmlLoader.load()
     val scene = new Scene(mainViewRoot)
     primaryStage.setScene(scene)
