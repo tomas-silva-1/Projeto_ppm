@@ -8,8 +8,8 @@
       <ToolBar prefHeight="35.0" prefWidth="785.0">
          <items>
             <Button fx:id="criarAlbum" mnemonicParsing="false" onMouseClicked="#cria_Album" text="Criar Album" />
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="botao2" mnemonicParsing="false" text="Button" />
+            <Button fx:id="botao3" mnemonicParsing="false" text="Button" />
          </items>
       </ToolBar>
       <ScrollBar layoutX="771.0" layoutY="32.0" orientation="VERTICAL" prefHeight="494.0" prefWidth="14.0" />
@@ -17,10 +17,14 @@
       <ListView fx:id="menu" layoutY="35.0" prefHeight="501.0" prefWidth="144.0" />
       <ToolBar layoutX="144.0" layoutY="35.0" prefHeight="40.0" prefWidth="628.0">
         <items>
-          <Button mnemonicParsing="false" text="Rodar para a direita" />
-            <Button mnemonicParsing="false" text="Rodar para a esquerda" />
-            <Button mnemonicParsing="false" text="Button" textOverrun="CLIP" />
-            <Button mnemonicParsing="false" text="Button" />
+          <Button fx:id="rotateR" mnemonicParsing="false" text="Rodar direita" />
+            <Button fx:id="rotateL" mnemonicParsing="false" text="Rodar esquerda" />
+            <Button fx:id="mirrorV" mnemonicParsing="false" text="MirrorV" textOverrun="CLIP" />
+            <Button fx:id="mirrorH" mnemonicParsing="false" text="MirrorH" />
+            <Button fx:id="sepia" mnemonicParsing="false" text="Sepia" />
+            <Button fx:id="contrast" mnemonicParsing="false" text="Contraste" />
+            <Button fx:id="noise" mnemonicParsing="false" text="Noise" />
+            <Button fx:id="scale" mnemonicParsing="false" text="Scale" />
         </items>
       </ToolBar>
       <ScrollBar layoutX="144.0" layoutY="526.0" prefHeight="14.0" prefWidth="628.0" />
