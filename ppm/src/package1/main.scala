@@ -1,6 +1,6 @@
 package package1
 
-import package1.ImagesAlbum.Album
+
 import package1.Manipulation.{Coords, Point, Section}
 import qtrees.{QLeaf, QNode, QTree}
 
@@ -43,7 +43,7 @@ object main {
 
 
   val exa = Manipulation(qt2)
-  val qt4 = exa.rotateR()
+  val qt4 = exa.mapColourEffectNoise()
   val ex2 = Manipulation(qt4)
   val bit4 = ex2.makeBitMap()
 
