@@ -2,17 +2,19 @@ package InterfaceGrafica
 
 import javafx.collections.{FXCollections, ObservableList}
 import javafx.fxml.FXML
-import javafx.scene.control.{Button, ListView, MenuButton, MenuItem, TextField}
+import javafx.scene.control.{Button, ListView, MenuButton, MenuItem, TextField, ToolBar}
 import javafx.scene.image.{Image, ImageView}
-import package1.Manipulation.{Coords, Point, Section}
-import package1.{ImagesAlbum, Manipulation}
+import package1.Manipulation.{Coords, Point, Section, generateBitMapFromImage}
+import package1.{BitMap, ImagesAlbum, Manipulation}
 import qtrees.{QLeaf, QNode, QTree}
 import javafx.scene.layout.AnchorPane
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 
+
 import javax.imageio.ImageIO
 import java.io.FileInputStream
+import java.nio.file.{Files, Paths, StandardCopyOption}
 //import javafx.scene.paint.Color
 
 import java.awt.Color
@@ -24,6 +26,12 @@ class Controller {
   private var carregarAlbum : Button = _
   @FXML
   private var carregarImagem : Button = _
+  @FXML
+  private var salvar1 : Button = _
+  @FXML
+  private var salvar2 : Button = _
+  @FXML
+  private var salvar3 : Button = _
   @FXML
   private var rotateR : Button = _
   @FXML
@@ -51,7 +59,11 @@ class Controller {
   @FXML
   private var input : TextField = _
   @FXML
+  private var input2 : TextField = _
+  @FXML
   private var imagem : ImageView = _
+  @FXML
+  private var barra : ToolBar = _
   @FXML
   private var album: ListView[String] = _
 
@@ -64,7 +76,7 @@ class Controller {
     }
   }
 
-  def carrega_Album: Unit ={
+  def carrega_Album(): Unit ={
     val lst: ObservableList[String] = FXCollections.observableArrayList()
     val list = getListOfFiles("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens")
     def aux(i:Int,i2:Int):Unit= {
@@ -77,26 +89,88 @@ class Controller {
     album.setItems(lst)
   }
 
-  def showImage:Unit = {
+  /*import javafx.event.EventHandler
+
+  album.setOnMouseClicked(new EventHandler[Nothing]() {
+    override def handle(event: Nothing): Unit = {
+      println("clicked on " + album.getSelectionModel.getSelectedItem)
+    }
+  })
+
+  def handleMouseClick():Unit={
+
+  }*/
+
+  /*def showImage:Unit = {
     album.getSelectionModel.selectedItemProperty.addListener(new ChangeListener[String]() {
+      //barra.setVisible(true)
       override def changed(ov: ObservableValue[_ <: String], old_val: String, new_val: String): Unit = {
-        val img = new Image("file:imagens\\"+old_val)
-        print("Ola")
+        println("Ola")
+        val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + new_val)
+        val img = new Image(f)
         imagem.setImage(img)
       }
     })
+  }*/
+
+  def showImage:Unit = {
+    barra.setVisible(true)
+    val str:String = album.getSelectionModel.getSelectedItem
+    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + str)
+    val img = new Image(f)
+    imagem.setImage(img)
   }
+
+  import javafx.stage.FileChooser
 
   def mostrar(): Unit={
     editar_Imagens.show()
+    input.setVisible(false)
+    input2.setVisible(false)
+    salvar1.setVisible(false)
+    salvar2.setVisible(false)
+  }
+
+  def salvarAdicionar():Unit={
+
+    val str:String = input.getText
+    if(new File(str).exists()) {
+      val str2: String = input2.getText
+      val bit: BitMap = generateBitMapFromImage(str)
+      bit.generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + str2)
+      input.setVisible(false)
+      input2.setVisible(false)
+      salvar2.setVisible(false)
+    }else{
+      input.setText("Path mal introduzido")
+    }
   }
 
   def adicionar(): Unit= {
-    println("Adicionado")
+    input.setVisible(true)
+    input.setText("Path da imagem")
+    input2.setVisible(true)
+    input2.setText("Nome da imagem")
+    salvar2.setVisible(true)
+  }
+
+  def salvarEliminar():Unit={
+    val str:String = input.getText
+    val d = new File("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    if (d.exists) {
+      d.delete()
+      input.setVisible(false)
+      salvar1.setVisible(false)
+    } else {
+      input.setText("Imagem não existe")
+    }
+
   }
 
   def remover(): Unit= {
-    println("Removido")
+    input.setVisible(true)
+    input.setText("Nome da imagem")
+    salvar1.setVisible(true)
   }
 
   def trocar(): Unit= {

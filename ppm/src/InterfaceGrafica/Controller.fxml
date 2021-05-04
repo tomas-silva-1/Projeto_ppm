@@ -10,17 +10,22 @@
          <items>
             <Button fx:id="carregarAlbum" mnemonicParsing="false" onMousePressed="#carrega_Album" text="Carregar Album" />
             <Button fx:id="carregarImagem" mnemonicParsing="false" onMousePressed="#carrega_Imagem" text="Imagem" />
-            <MenuButton fx:id="editar_Imagens" mnemonicParsing="false" onMousePressed="#mostrar" text="MenuButton">
+            <MenuButton fx:id="editar_Imagens" mnemonicParsing="false" onMousePressed="#mostrar" text="Editar Album">
               <items>
                 <MenuItem fx:id="adicionar_Imagem" mnemonicParsing="false" onAction="#adicionar" text="Adicionar Imagem" />
                 <MenuItem fx:id="remover_Imagem" mnemonicParsing="false" onAction="#remover" text="Remover Imagem" />
                   <MenuItem fx:id="trocar_Imagens" mnemonicParsing="false" onAction="#trocar" text="Trocar Imagens" />
               </items>
             </MenuButton>
+            <TextField fx:id="input" visible="false" />
+            <TextField fx:id="input2" visible="false" />
+            <Button fx:id="salvar1" mnemonicParsing="false" onMousePressed="#salvarEliminar" text="Salvar" visible="false" />
+            <Button fx:id="salvar2" mnemonicParsing="false" onMousePressed="#salvarAdicionar" text="Salvar" visible="false" />
+            <Button mnemonicParsing="false" text="Salvar" visible="false" />
          </items>
       </ToolBar>
-      <ListView fx:id="album" layoutY="38.0" onMouseClicked="#showImage" prefHeight="501.0" prefWidth="144.0" />
-      <ToolBar layoutX="144.0" layoutY="35.0" prefHeight="40.0" prefWidth="642.0">
+      <ListView fx:id="album" layoutY="38.0" onMousePressed="#showImage" prefHeight="501.0" prefWidth="144.0" />
+      <ToolBar fx:id="barra" layoutX="144.0" layoutY="35.0" prefHeight="40.0" prefWidth="642.0" visible="false">
         <items>
           <Button fx:id="rotateR" mnemonicParsing="false" text="Rodar direita" />
             <Button fx:id="rotateL" mnemonicParsing="false" text="Rodar esquerda" />
@@ -32,6 +37,6 @@
             <Button fx:id="scale" mnemonicParsing="false" text="Scale" />
         </items>
       </ToolBar>
-      <ImageView fx:id="imagem" fitHeight="431.0" fitWidth="597.0" layoutX="165.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imagem" fitHeight="431.0" fitWidth="597.0" layoutX="167.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

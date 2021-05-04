@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.{Parent, Scene}
 import javafx.stage.Stage
 
+
 class App extends Application{
   override def start(primaryStage: Stage): Unit = {
     primaryStage.setTitle("Albuns")
