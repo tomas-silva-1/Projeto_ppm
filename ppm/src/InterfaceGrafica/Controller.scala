@@ -89,30 +89,6 @@ class Controller {
     album.setItems(lst)
   }
 
-  /*import javafx.event.EventHandler
-
-  album.setOnMouseClicked(new EventHandler[Nothing]() {
-    override def handle(event: Nothing): Unit = {
-      println("clicked on " + album.getSelectionModel.getSelectedItem)
-    }
-  })
-
-  def handleMouseClick():Unit={
-
-  }*/
-
-  /*def showImage:Unit = {
-    album.getSelectionModel.selectedItemProperty.addListener(new ChangeListener[String]() {
-      //barra.setVisible(true)
-      override def changed(ov: ObservableValue[_ <: String], old_val: String, new_val: String): Unit = {
-        println("Ola")
-        val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + new_val)
-        val img = new Image(f)
-        imagem.setImage(img)
-      }
-    })
-  }*/
-
   def showImage:Unit = {
     barra.setVisible(true)
     val str:String = album.getSelectionModel.getSelectedItem
@@ -121,7 +97,6 @@ class Controller {
     imagem.setImage(img)
   }
 
-  import javafx.stage.FileChooser
 
   def mostrar(): Unit={
     editar_Imagens.show()
@@ -175,12 +150,6 @@ class Controller {
 
   def trocar(): Unit= {
     println("Trocado")
-  }
-
-  def carrega_Imagem(): Unit={
-    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\image4.png")
-    val img = new Image(f)
-    imagem.setImage(img)
   }
 
 
