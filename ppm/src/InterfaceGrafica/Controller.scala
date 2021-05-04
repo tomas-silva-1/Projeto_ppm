@@ -4,20 +4,9 @@ import javafx.collections.{FXCollections, ObservableList}
 import javafx.fxml.FXML
 import javafx.scene.control.{Button, ListView, MenuButton, MenuItem, TextField, ToolBar}
 import javafx.scene.image.{Image, ImageView}
-import package1.Manipulation.{Coords, Point, Section, generateBitMapFromImage}
-import package1.{BitMap, ImagesAlbum, Manipulation}
-import qtrees.{QLeaf, QNode, QTree}
-import javafx.scene.layout.AnchorPane
-import javafx.beans.value.ChangeListener
-import javafx.beans.value.ObservableValue
-
-
-import javax.imageio.ImageIO
+import package1.Manipulation.{generateBitMapFromImage}
+import package1.{BitMap, Manipulation}
 import java.io.FileInputStream
-import java.nio.file.{Files, Paths, StandardCopyOption}
-//import javafx.scene.paint.Color
-
-import java.awt.Color
 import java.io.File
 
 class Controller {
