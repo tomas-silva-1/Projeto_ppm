@@ -64,7 +64,7 @@ class Controller {
   }
 
   def carregaImagem(): Unit={
-    imagem.setImage(getImg("iscte.png"))
+    imagem.setImage(getImg("file:iscte.png"))
     imagem.setFitWidth(500)
     imagem.setFitHeight(100)
   }
