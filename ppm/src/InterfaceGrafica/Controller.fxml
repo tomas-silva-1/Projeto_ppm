@@ -8,16 +8,13 @@
    <children>
       <ToolBar prefHeight="35.0" prefWidth="785.0">
          <items>
-            <Button fx:id="criarAlbum" mnemonicParsing="false" onMousePressed="#carrega_Album" text="Carregar Album" />
+            <Button fx:id="carregarAlbum" mnemonicParsing="false" onMousePressed="#carrega_Album" text="Carregar Album" />
             <Button fx:id="carregarImagem" mnemonicParsing="false" onMousePressed="#carrega_Imagem" text="Imagem" />
-            <Button fx:id="botao3" mnemonicParsing="false" text="Adicionar Imagem" />
-            <Button mnemonicParsing="false" text="Remover Imagem" />
-            <Button mnemonicParsing="false" text="Trocar Imagens" />
             <MenuButton fx:id="editar_Imagens" mnemonicParsing="false" onMousePressed="#mostrar" text="MenuButton">
               <items>
-                <MenuItem fx:id="adicionar_Imagem" mnemonicParsing="false" text="Adicionar Imagem" />
+                <MenuItem fx:id="adicionar_Imagem" mnemonicParsing="false" onAction="#adicionar" text="Adicionar Imagem" />
                 <MenuItem fx:id="remover_Imagem" mnemonicParsing="false" onAction="#remover" text="Remover Imagem" />
-                  <MenuItem fx:id="trocar_Imagens" mnemonicParsing="false" text="Trocar Imagens" />
+                  <MenuItem fx:id="trocar_Imagens" mnemonicParsing="false" onAction="#trocar" text="Trocar Imagens" />
               </items>
             </MenuButton>
          </items>
@@ -35,6 +32,6 @@
             <Button fx:id="scale" mnemonicParsing="false" text="Scale" />
         </items>
       </ToolBar>
-      <ImageView fx:id="carregarImagem" fitHeight="150.0" fitWidth="200.0" layoutX="278.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imagem" fitHeight="431.0" fitWidth="597.0" layoutX="165.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
