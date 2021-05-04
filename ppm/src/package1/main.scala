@@ -58,9 +58,9 @@ object main {
 
   def main(args: Array[String]): Unit = {
 
-    val qt5 = exa.scale(0.5)
+    /*val qt5 = exa.scale(0.5)
     val ex5 = Manipulation(qt5)
-    val bit5 = ex5.makeBitMap()
+    val bit5 = ex5.makeBitMap()*/
 
     val qt_ex = ex.makeQTree(bitOrig)
     val exL = Manipulation(qt_ex)
@@ -75,7 +75,7 @@ object main {
     bitOrig.generateImageFromBitMap(path +"imageOrig.png")
     bit_ex.generateImageFromBitMap(path+"img2.png")
     bit_uma.generateImageFromBitMap(path+"img3.png")
-    bit5.generateImageFromBitMap(path + "image5.png")
+    //bit5.generateImageFromBitMap(path + "image5.png")
 
 
     println(qt_ex)
