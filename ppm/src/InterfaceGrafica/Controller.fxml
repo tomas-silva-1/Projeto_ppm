@@ -4,9 +4,9 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="526.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InterfaceGrafica.Controller">
+<AnchorPane prefHeight="540.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InterfaceGrafica.Controller">
    <children>
-      <ToolBar prefHeight="35.0" prefWidth="785.0">
+      <ToolBar layoutY="2.0" prefHeight="35.0" prefWidth="785.0">
          <items>
             <Button fx:id="carregarAlbum" mnemonicParsing="false" onMousePressed="#carrega_Album" text="Carregar Album" />
             <MenuButton fx:id="editar_Imagens" mnemonicParsing="false" onMousePressed="#mostrar" text="Editar Album">
@@ -26,16 +26,17 @@
       <ListView fx:id="album" layoutY="38.0" onMousePressed="#showImage" prefHeight="501.0" prefWidth="144.0" />
       <ToolBar fx:id="barra" layoutX="144.0" layoutY="35.0" prefHeight="40.0" prefWidth="642.0" visible="false">
         <items>
-          <Button fx:id="rotateR" mnemonicParsing="false" text="Rodar direita" />
-            <Button fx:id="rotateL" mnemonicParsing="false" text="Rodar esquerda" />
-            <Button fx:id="mirrorV" mnemonicParsing="false" text="MirrorV" textOverrun="CLIP" />
-            <Button fx:id="mirrorH" mnemonicParsing="false" text="MirrorH" />
-            <Button fx:id="sepia" mnemonicParsing="false" text="Sepia" />
-            <Button fx:id="contrast" mnemonicParsing="false" text="Contraste" />
+          <Button fx:id="rotateR" mnemonicParsing="false" onMousePressed="#rodarR" text="Rodar direita" />
+            <Button fx:id="rotateL" mnemonicParsing="false" onMousePressed="#rodarE" text="Rodar esquerda" />
+            <Button fx:id="mirrorV" mnemonicParsing="false" onMousePressed="#espelhoV" text="MirrorV" textOverrun="CLIP" />
+            <Button fx:id="mirrorH" mnemonicParsing="false" onMousePressed="#espelhoH" text="MirrorH" />
+            <Button fx:id="sepia" mnemonicParsing="false" onMousePressed="#sepiaa" text="Sepia" />
+            <Button fx:id="contrast" mnemonicParsing="false" onMousePressed="#contraste" text="Contraste" />
             <Button fx:id="noise" mnemonicParsing="false" text="Noise" />
-            <Button fx:id="scale" mnemonicParsing="false" text="Scale" />
+            <Button fx:id="scale" mnemonicParsing="false" onMousePressed="#opentextscale" text="Scale" />
+            <TextField fx:id="scaletext" onKeyPressed="#resize" visible="false" />
         </items>
       </ToolBar>
-      <ImageView fx:id="imagem" fitHeight="431.0" fitWidth="597.0" layoutX="167.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imagem" fitHeight="431.0" fitWidth="597.0" layoutX="167.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

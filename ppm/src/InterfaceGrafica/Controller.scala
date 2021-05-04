@@ -61,6 +61,8 @@ class Controller {
   @FXML
   private var input2 : TextField = _
   @FXML
+  private var scaletext : TextField = _
+  @FXML
   private var imagem : ImageView = _
   @FXML
   private var barra : ToolBar = _
@@ -87,6 +89,8 @@ class Controller {
     }
     aux(0,list.length)
     album.setItems(lst)
+    barra.setVisible(false)
+    imagem.setImage(null)
   }
 
   def showImage:Unit = {
@@ -150,6 +154,84 @@ class Controller {
 
   def trocar(): Unit= {
     println("Trocado")
+  }
+
+  def rodarR():Unit={
+    val str:String = album.getSelectionModel.getSelectedItem
+    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val qt= Manipulation(Manipulation.makeQTree(bit)).rotateR()
+    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val img = new Image(f)
+    imagem.setImage(img)
+  }
+
+  def rodarE():Unit={
+    val str:String = album.getSelectionModel.getSelectedItem
+    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val qt= Manipulation(Manipulation.makeQTree(bit)).rotateL()
+    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val img = new Image(f)
+    imagem.setImage(img)
+  }
+
+  def espelhoV():Unit={
+    val str:String = album.getSelectionModel.getSelectedItem
+    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val qt= Manipulation(Manipulation.makeQTree(bit)).mirrorV()
+    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val img = new Image(f)
+    imagem.setImage(img)
+  }
+
+  def espelhoH():Unit={
+    val str:String = album.getSelectionModel.getSelectedItem
+    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val qt= Manipulation(Manipulation.makeQTree(bit)).mirrorH()
+    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val img = new Image(f)
+    imagem.setImage(img)
+  }
+
+  /*def noisee():Unit={
+    val str:String = album.getSelectionModel.getSelectedItem
+    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val qt= Manipulation(Manipulation.makeQTree(bit)).mirrorH()
+    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val img = new Image(f)
+    imagem.setImage(img)
+  }*/
+
+  def contraste():Unit={
+    val str:String = album.getSelectionModel.getSelectedItem
+    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val qt= Manipulation(Manipulation.makeQTree(bit)).mapColourEffectContrast()
+    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val img = new Image(f)
+    imagem.setImage(img)
+  }
+
+  def sepiaa():Unit={
+    val str:String = album.getSelectionModel.getSelectedItem
+    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val qt= Manipulation(Manipulation.makeQTree(bit)).mapColourEffectSepia()
+    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val img = new Image(f)
+    imagem.setImage(img)
+  }
+
+  def resize():Unit={
+  }
+
+  def opentextscale():Unit={
+    scaletext.setVisible(true)
+    scaletext.setText("Factor de escala")
   }
 
 

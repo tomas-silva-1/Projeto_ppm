@@ -13,7 +13,7 @@ object AppConsola{
 
   def iniciar(): String={
     println("insira o nome da imagem que deseja alterar:")
-    "C:\\Users\\tomas\\Documents\\Docs\\Iscte\\ppm\\projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+readLine()
+    "C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+readLine()
 
   }
   def loadImage(string: String): QTree[Coords] = {
