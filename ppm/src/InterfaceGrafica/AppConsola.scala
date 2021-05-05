@@ -13,7 +13,7 @@ object AppConsola{
 
   def iniciar(): String={
     println("Insira o nome da imagem que deseja alterar:")
-    "C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+readLine()
+    "C:\\Users\\tomas\\Documents\\Docs\\Iscte\\ppm\\projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+readLine()
 
   }
   def loadImage(string: String): QTree[Coords] = {
@@ -27,8 +27,6 @@ object AppConsola{
   def saveImage(QTree: QTree[Coords],string: String): Unit ={
     generateImageFromBitMap(makeBitMap(QTree),string)
   }
-
-
   def getScaleFactor() : Double = {
     println("Insira o fator de scale")
     readDouble()

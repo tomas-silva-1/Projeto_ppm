@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="540.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InterfaceGrafica.Controller">
    <children>
-      <ToolBar layoutY="2.0" prefHeight="35.0" prefWidth="835.0">
+      <ToolBar layoutY="2.0" prefHeight="35.0" prefWidth="835.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <items>
             <Button fx:id="carregarAlbum" mnemonicParsing="false" onMousePressed="#carrega_Album" text="Carregar Album" />
             <MenuButton fx:id="editar_Imagens" mnemonicParsing="false" onMousePressed="#mostrar" text="Editar Album" visible="false">
@@ -24,8 +24,8 @@
             <Button fx:id="salvar3" mnemonicParsing="false" onMousePressed="#salvarTrocar" text="Salvar" visible="false" />
          </items>
       </ToolBar>
-      <ListView fx:id="album" layoutY="38.0" onMousePressed="#showImage" prefHeight="501.0" prefWidth="144.0" />
-      <ToolBar fx:id="barra" layoutX="144.0" layoutY="35.0" prefHeight="40.0" prefWidth="691.0" visible="false">
+      <ListView fx:id="album" layoutY="38.0" onMousePressed="#showImage" prefHeight="501.0" prefWidth="144.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="38.0" />
+      <ToolBar fx:id="barra" layoutX="144.0" layoutY="35.0" prefHeight="40.0" prefWidth="691.0" visible="false" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
         <items>
           <Button fx:id="rotateR" mnemonicParsing="false" onMousePressed="#rodarR" text="Rodar direita" />
             <Button fx:id="rotateL" mnemonicParsing="false" onMousePressed="#rodarE" text="Rodar esquerda" />
@@ -39,7 +39,7 @@
             <Button fx:id="salvarscale" mnemonicParsing="false" onMousePressed="#resize" prefHeight="26.0" prefWidth="48.0" text="Salvar" visible="false" />
         </items>
       </ToolBar>
-      <ImageView fx:id="imagem" fitHeight="431.0" fitWidth="450.0" layoutX="265.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imagem" fitHeight="400.0" fitWidth="507.0" layoutX="233.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="233.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="84.0" />
       <Button fx:id="left" layoutX="165.0" layoutY="276.0" mnemonicParsing="false" onMousePressed="#doLeft" text="&lt;--" visible="false" />
       <Button fx:id="right" layoutX="771.0" layoutY="276.0" mnemonicParsing="false" onMousePressed="#doRight" text="--&gt;" visible="false" />
       <GridPane fx:id="gridView" layoutX="259.0" layoutY="89.0" prefHeight="414.0" prefWidth="433.0">

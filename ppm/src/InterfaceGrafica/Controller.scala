@@ -77,12 +77,12 @@ class Controller {
   @FXML
   private var gridView: GridPane = _
 
-  val anchor: AnchorPane = new AnchorPane(album)
+  /*val anchor: AnchorPane = new AnchorPane(album)
   AnchorPane.setTopAnchor(album, 0.0)
   AnchorPane.setLeftAnchor(album, 0.0)
   /*AnchorPane.setTopAnchor(barra, 10.0)
   AnchorPane.setRightAnchor(barra, 10.0)*/
-  anchor.getChildren().addAll(album)
+  anchor.getChildren().addAll(album) */
 
   def getListOfFiles(dir: String):List[File] = {
     val d = new File(dir)
