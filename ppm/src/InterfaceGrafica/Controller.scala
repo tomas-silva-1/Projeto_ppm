@@ -96,6 +96,7 @@ class Controller {
   def carrega_Album(): Unit ={
     val lst: ObservableList[String] = FXCollections.observableArrayList()
     val list = getListOfFiles(path)
+    var list1 : List[String]= FileWriter.getImage.toList
     def aux(i:Int,i2:Int):Unit= {
       if(i<i2){
         lst.addAll(list(i).getName)
