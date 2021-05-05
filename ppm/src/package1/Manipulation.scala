@@ -15,7 +15,7 @@ case class Manipulation[A](myField: QTree[Coords]){
   def mirrorH():QTree[Coords] = Manipulation.mirrorH(this.myField)
   def rotateL():QTree[Coords] = Manipulation.rotateL(this.myField)
   def rotateR():QTree[Coords] = Manipulation.rotateR(this.myField)
-  def mapColourEffectNoise():QTree[Coords] = Manipulation.mapColourEffectNoise(this.myField/*,MyRandom(2),0*/)
+  def mapColourEffectNoise(r: RandomWithState):QTree[Coords] = Manipulation.mapColourEffectNoise(this.myField,r,0)
   def mapColourEffectContrast():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.contrast,this.myField)
   def mapColourEffectSepia():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.sepia,this.myField)
 
@@ -33,21 +33,6 @@ object Manipulation{
   }
 
   /**************************************makeQTree***********************************************/
-
-  /*def isLeaf2(map: BitMap, c: Coords):(Boolean,Int)={
-    def aux1( cord:Coords,i:Int): (Boolean,Int) = {
-      if(cord._1._2 <= c._2._2) {
-        if(map.getListOfList()(c._1._2).takeWhile(x => x==i).length != map.getListOfList()(c._1._2).length){
-          (false,i)
-        }else{
-          aux1(((cord._1._1, cord._1._2+1), (c._2._1, c._2._2)),i)
-        }
-      }else{
-        (true, i)
-      }
-    }
-    aux1(((c._1._1,c._1._2),(c._2._1,c._2._2)),map.getListOfList()(c._1._2)(c._1._1))
-  }*/
 
   def isLeaf(map: BitMap, c: Coords):(Boolean,Int)={
     def aux1( cord:Coords,i:Int): (Boolean,Int) = {
@@ -305,7 +290,7 @@ object Manipulation{
     }
   }
 
-  /*def mapColourEffectNoise(qt:QTree[Coords], r:RandomWithState, i:Int):QTree[Coords] = {
+  def mapColourEffectNoise(qt:QTree[Coords], r:RandomWithState, i:Int):QTree[Coords] = {
     qt match {
       case QEmpty=> QEmpty
       case QLeaf((value,color:Color)) =>
@@ -319,9 +304,9 @@ object Manipulation{
         val r4 = rand(r3._2)
         QNode(value,mapColourEffectNoise(one,r1._2,r1._1),mapColourEffectNoise(two,r2._2,r2._1),mapColourEffectNoise(three,r3._2,r3._1),mapColourEffectNoise(four,r4._2,r4._1))
     }
-  }*/
+  }
 
-  def IntColour(i:Int):Color={
+  /*def IntColour(i:Int):Color={
       new Color(ImageUtil.decodeRgb(i)(0),ImageUtil.decodeRgb(i)(1),ImageUtil.decodeRgb(i)(2))
   }
 
@@ -329,8 +314,8 @@ object Manipulation{
     ImageUtil.encodeRgb(c.getRed,c.getGreen,c.getBlue)
   }
 
-  def mapColourEffectNoise(qt:QTree[Coords]):QTree[Coords] = {
-    val r = MyRandom(2)
+  def mapColourEffectNoise(qt:QTree[Coords],r: RandomWithState):QTree[Coords] = {
+    //val r = MyRandom(3)
     val qtList = makeBitMap(qt).getListOfList()
     val list: Array[Array[Int]] = Array.ofDim[Int](qTreeSize(qt)._1,qTreeSize(qt)._2)
     def aux1(cord: Coords, ra: RandomWithState): Unit = {
@@ -345,32 +330,14 @@ object Manipulation{
         }
       }
       if (cord._1._1 <= cord._2._1) {
-        val random = rand(ra)
-        aux2(((cord._1._1, cord._1._2), (cord._2._1, cord._2._2)),random._2)
+        //val random = rand(ra)
+        aux2(((cord._1._1, cord._1._2), (cord._2._1, cord._2._2)),ra)
       }
     }
     aux1(cords(qt),r)
     makeQTree(BitMap(list.map(_.toList).toList))
-  }
-
-  /*def mapColourEffectNoise(f:(Color,Int) => Color, qt:QTree[Coords]):QTree[Coords] = {
-    val r = MyRandom(2)
-    val list = makeBitMap(qt).getListOfList()
-    def aux(f:(Color,Int) => Color, l:List[List[Int]],random:RandomWithState): List[List[Int]] = {
-      l match {
-        case Nil => List()
-        case x::xs =>{
-          val ra= rand(random)
-          (x map (z => { val v1 = ImageUtil.decodeRgb(z).toList
-            val c1: Color = f(new Color(v1(0),v1(1),v1(2)),ra._1)
-            ImageUtil.encodeRgb(c1.getRed,c1.getGreen,c1.getBlue)} )) :: aux(f,xs,ra._2)
-        }
-      }
-    }
-    val newList = aux(noise,list,r)
-    val bit = new BitMap(newList)
-    makeQTree(bit)
   }*/
+
 
 }
 

@@ -7,11 +7,16 @@ import javafx.scene.image.{Image, ImageView}
 import javafx.scene.layout.GridPane
 import package1.Manipulation.generateBitMapFromImage
 import package1.{BitMap, Manipulation}
+import random.MyRandom
+import javafx.scene.layout.AnchorPane
+import javafx.scene.layout.AnchorPane._
 
 import java.io.FileInputStream
 import java.io.File
 
 class Controller {
+
+  val path = System.getProperty("user.dir") + "\\Projeto_ppm\\ppm\\src\\imagens"
 
   @FXML
   private var carregarAlbum : Button = _
@@ -72,6 +77,13 @@ class Controller {
   @FXML
   private var gridView: GridPane = _
 
+  val anchor: AnchorPane = new AnchorPane(album)
+  AnchorPane.setTopAnchor(album, 0.0)
+  AnchorPane.setLeftAnchor(album, 0.0)
+  /*AnchorPane.setTopAnchor(barra, 10.0)
+  AnchorPane.setRightAnchor(barra, 10.0)*/
+  anchor.getChildren().addAll(album)
+
   def getListOfFiles(dir: String):List[File] = {
     val d = new File(dir)
     if (d.exists && d.isDirectory) {
@@ -83,7 +95,7 @@ class Controller {
 
   def carrega_Album(): Unit ={
     val lst: ObservableList[String] = FXCollections.observableArrayList()
-    val list = getListOfFiles("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens")
+    val list = getListOfFiles(path)
     def aux(i:Int,i2:Int):Unit= {
       if(i<i2){
         lst.addAll(list(i).getName)
@@ -98,6 +110,7 @@ class Controller {
     editar_Imagens.setVisible(true)
     grid.setVisible(true)
     imagem.setImage(null)
+    album.setDisable(false)
   }
 
   def showImage:Unit = {
@@ -106,7 +119,7 @@ class Controller {
     left.setVisible(true)
     right.setVisible(true)
     val str:String = album.getSelectionModel.getSelectedItem
-    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + str)
+    val f = new FileInputStream(path + "\\" + str)
     val img = new Image(f)
     imagem.setImage(img)
   }
@@ -114,6 +127,7 @@ class Controller {
 
   def mostrar(): Unit={
     editar_Imagens.show()
+    album.setDisable(false)
     input.setVisible(false)
     input2.setVisible(false)
     salvar1.setVisible(false)
@@ -124,42 +138,47 @@ class Controller {
   def salvarAdicionar():Unit={
 
     val str:String = input.getText
+    input.clear()
     if(new File(str).exists()) {
       val str2: String = input2.getText
       val bit: BitMap = generateBitMapFromImage(str)
-      bit.generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + str2)
+      bit.generateImageFromBitMap(path + "\\" + str2)
       input.setVisible(false)
       input2.setVisible(false)
       salvar2.setVisible(false)
     }else{
-      input.setText("Path mal introduzido")
+      input.setPromptText("Path mal introduzido")
     }
   }
 
   def adicionar(): Unit= {
     input.setVisible(true)
-    input.setText("Path da imagem")
+    input.setPromptText("Path da imagem")
     input2.setVisible(true)
-    input2.setText("Nome da imagem")
+    input2.setPromptText("Nome da imagem")
     salvar2.setVisible(true)
   }
 
   def salvarEliminar():Unit={
     val str:String = input.getText
-    val d = new File("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    input.clear()
+    val d = new File(path + "\\"+str)
     if (d.exists) {
       d.delete()
       input.setVisible(false)
       salvar1.setVisible(false)
+      album.setDisable(false)
     } else {
-      input.setText("Imagem não existe")
+      input.setPromptText("Imagem não existe")
+      album.setDisable(false)
     }
 
   }
 
   def remover(): Unit= {
+    album.setDisable(true)
     input.setVisible(true)
-    input.setText("Nome da imagem")
+    input.setPromptText("Nome da imagem")
     salvar1.setVisible(true)
   }
 
@@ -169,78 +188,79 @@ class Controller {
 
   def trocar(): Unit= {
     input.setVisible(true)
-    input.setText("Nome da imagem")
+    input.setPromptText("Nome da imagem")
     input2.setVisible(true)
-    input2.setText("Nome da imagem")
+    input2.setPromptText("Nome da imagem")
     salvar3.setVisible(true)
   }
 
   def rodarR():Unit={
     val str:String = album.getSelectionModel.getSelectedItem
-    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val bit: BitMap = generateBitMapFromImage(path + "\\"+str)
     val qt= Manipulation(Manipulation.makeQTree(bit)).rotateR()
-    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
-    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    Manipulation.makeBitMap(qt).generateImageFromBitMap(path + "\\"+str)
+    val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
   }
 
   def rodarE():Unit={
     val str:String = album.getSelectionModel.getSelectedItem
-    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val bit: BitMap = generateBitMapFromImage(path + "\\"+str)
     val qt= Manipulation(Manipulation.makeQTree(bit)).rotateL()
-    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
-    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    Manipulation.makeBitMap(qt).generateImageFromBitMap(path + "\\"+str)
+    val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
   }
 
   def espelhoV():Unit={
     val str:String = album.getSelectionModel.getSelectedItem
-    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val bit: BitMap = generateBitMapFromImage(path + "\\"+str)
     val qt= Manipulation(Manipulation.makeQTree(bit)).mirrorV()
-    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
-    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    Manipulation.makeBitMap(qt).generateImageFromBitMap(path + "\\"+str)
+    val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
   }
 
   def espelhoH():Unit={
     val str:String = album.getSelectionModel.getSelectedItem
-    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val bit: BitMap = generateBitMapFromImage(path + "\\"+str)
     val qt= Manipulation(Manipulation.makeQTree(bit)).mirrorH()
-    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
-    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    Manipulation.makeBitMap(qt).generateImageFromBitMap(path + "\\"+str)
+    val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
   }
 
   def noisee():Unit={
+    val r = MyRandom(3)
     val str:String = album.getSelectionModel.getSelectedItem
-    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
-    val qt= Manipulation(Manipulation.makeQTree(bit)).mapColourEffectNoise()
-    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
-    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val bit: BitMap = generateBitMapFromImage(path + "\\"+str)
+    val qt= Manipulation(Manipulation.makeQTree(bit)).mapColourEffectNoise(r)
+    Manipulation.makeBitMap(qt).generateImageFromBitMap(path + "\\"+str)
+    val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
   }
 
   def contraste():Unit={
     val str:String = album.getSelectionModel.getSelectedItem
-    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val bit: BitMap = generateBitMapFromImage(path + "\\"+str)
     val qt= Manipulation(Manipulation.makeQTree(bit)).mapColourEffectContrast()
-    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
-    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    Manipulation.makeBitMap(qt).generateImageFromBitMap(path + "\\"+str)
+    val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
   }
 
   def sepiaa():Unit={
     val str:String = album.getSelectionModel.getSelectedItem
-    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val bit: BitMap = generateBitMapFromImage(path + "\\"+str)
     val qt= Manipulation(Manipulation.makeQTree(bit)).mapColourEffectSepia()
-    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
-    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    Manipulation.makeBitMap(qt).generateImageFromBitMap(path + "\\"+str)
+    val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
   }
@@ -248,10 +268,10 @@ class Controller {
   def resize():Unit={
     val str:String = album.getSelectionModel.getSelectedItem
     val d : Double = scaletext.getText.toDouble
-    val bit: BitMap = generateBitMapFromImage("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    val bit: BitMap = generateBitMapFromImage(path + "\\"+str)
     val qt= Manipulation(Manipulation.makeQTree(bit)).scale(d)
-    Manipulation.makeBitMap(qt).generateImageFromBitMap("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
-    val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+str)
+    Manipulation.makeBitMap(qt).generateImageFromBitMap(path + "\\"+str)
+    val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
     scaletext.setVisible(false)
@@ -284,7 +304,7 @@ class Controller {
     if(index - 1 >= 0) {
       val str2:String = album.getItems.get(index - 1)
       album.getSelectionModel.select(index - 1)
-      val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + str2)
+      val f = new FileInputStream(path + "\\" + str2)
       val img = new Image(f)
       imagem.setImage(img)
     }
@@ -296,7 +316,7 @@ class Controller {
     if(index + 1 < album.getItems.size()) {
       val str2:String = album.getItems.get(index + 1)
       album.getSelectionModel.select(index + 1)
-      val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + str2)
+      val f = new FileInputStream(path + "\\" + str2)
       val img = new Image(f)
       imagem.setImage(img)
     }
@@ -309,36 +329,42 @@ class Controller {
     right.setVisible(false)
     barra.setVisible(false)
     imagem.setImage(null)
-    /*def aux(i:Int,c:Int,l:Int):Unit= {
+    def aux(i:Int,c:Int,l:Int):Unit= {
       if(i<album.getItems.size()) {
-        val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + album.getItems.get(i))
-        val img = new Image(f)
-        auxiliar.setImage(img)
-        gridView.addColumn(c,auxiliar)
+        val anchorpane = new AnchorPane
+        var f = new FileInputStream(path + "\\" + album.getItems.get(i))
+        var img = new Image(f)
+        var view = new ImageView()
+        view.setImage(img)
+        gridView.add(view,c,l)
+        setTopAnchor(view, 10.0)
         aux(i+1,c+1,l)
       }
     }
-    aux(0,0,0)*/
+    aux(0,0,0)
 
-    /*val f = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + album.getItems.get(0))
+    /*val f = new FileInputStream(path + "\\"  + album.getItems.get(0))
     val img = new Image(f)
     auxiliar.setImage(img)
     gridView.add(auxiliar,0,0)
 
-    val f1 = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + album.getItems.get(1))
+    val f1 = new FileInputStream(path + "\\"  + album.getItems.get(1))
     val img1 = new Image(f1)
-    auxiliar.setImage(img1)
-    gridView.add(auxiliar,0,1)
+    val i = new ImageView()
+    i.setImage(img1)
+    gridView.add(i,0,1)
 
-    val f2 = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + album.getItems.get(2))
+    val f2 = new FileInputStream(path + "\\"  + album.getItems.get(2))
     val img2 = new Image(f2)
-    auxiliar.setImage(img2)
-    gridView.add(auxiliar,1,0)
+    val i2 = new ImageView()
+    i2.setImage(img2)
+    gridView.add(i2,1,0)
 
-    val f3 = new FileInputStream("C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\" + album.getItems.get(3))
+    val f3 = new FileInputStream(path + "\\"  + album.getItems.get(3))
     val img3 = new Image(f3)
-    auxiliar.setImage(img3)
-    gridView.add(auxiliar,1,1)*/
+    val i3 = new ImageView()
+    i3.setImage(img3)
+    gridView.add(i3,1,1)*/
 
   }
 

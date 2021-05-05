@@ -32,8 +32,8 @@ object main {
   val l7: QLeaf[Coords, Section] = QLeaf((((2, 2): Point, (3, 3): Point): Coords, Color.yellow): Section)
   val qt2: QTree[Coords] = qtrees.QNode(((0, 0), (3, 3)), qt, l5, l6, qt_2)
 
-  val bit = BitMap({val image : Array[Array[Int]] = ImageUtil.readColorImage(path + "img.png")
-    image.map(_.toList).toList})
+  /*val bit = BitMap({val image : Array[Array[Int]] = ImageUtil.readColorImage(path + "img.png")
+    image.map(_.toList).toList})*/
 
   val ex = Manipulation(qt)
 
@@ -44,10 +44,10 @@ object main {
   val ex1 = Example(qt3)
   val bit3 = ex1.makeBitMap()*/
 
-  val r = MyRandom(2)
-  val r1 = MyRandom(2)
+  val r = MyRandom(5)
+  val r1 = MyRandom(6)
   val exa = Manipulation(qt2)
-  val qt4 = exa.mapColourEffectNoise()
+  val qt4 = exa.mapColourEffectNoise(r)
   val ex2 = Manipulation(qt4)
   val bit4 = ex2.makeBitMap()
 
@@ -67,7 +67,7 @@ object main {
     val qt_ex = ex.makeQTree(bitOrig)
     val exL = Manipulation(qt_ex)
     val bit_ex = exL.makeBitMap()
-    val qtumasmrds=exa.mapColourEffectNoise()
+    val qtumasmrds=exa.mapColourEffectNoise(r1)
     val ex_uma= Manipulation(qtumasmrds)
     val bit_uma= ex_uma.makeBitMap()
    // bit.generateImageFromBitMap("image.png")
