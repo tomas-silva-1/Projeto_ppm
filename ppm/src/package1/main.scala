@@ -4,6 +4,7 @@ package package1
 import javafx.application.Application
 import package1.Manipulation.{Coords, Point, Section}
 import qtrees.{QLeaf, QNode, QTree}
+import random.MyRandom
 
 import java.awt.Color
 
@@ -43,7 +44,8 @@ object main {
   val ex1 = Example(qt3)
   val bit3 = ex1.makeBitMap()*/
 
-
+  val r = MyRandom(2)
+  val r1 = MyRandom(2)
   val exa = Manipulation(qt2)
   val qt4 = exa.mapColourEffectNoise()
   val ex2 = Manipulation(qt4)
