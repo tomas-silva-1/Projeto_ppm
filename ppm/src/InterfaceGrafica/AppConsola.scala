@@ -12,7 +12,7 @@ case class AppConsola() {
 object AppConsola{
 
   def iniciar(): String={
-    println("insira o nome da imagem que deseja alterar:")
+    println("Insira o nome da imagem que deseja alterar:")
     "C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"+readLine()
 
   }
@@ -30,7 +30,7 @@ object AppConsola{
 
 
   def getScaleFactor() : Double = {
-    println("inisira o fator de scale")
+    println("Insira o fator de scale")
     readDouble()
   }
 
@@ -47,25 +47,25 @@ object AppConsola{
     val n = readInt()
     n match {
       case 1 =>{saveImage(scale(getScaleFactor(),loadImage(string)),string)
-        println("alteraões efetuadas á imagem")
+        println("Alteraões efetuadas á imagem")
         chooseFunction(string)}
       case 2=>{saveImage(editImage(loadImage(string),mirrorV),string)
-        println("alteraões efetuadas á imagem")
+        println("Alteraões efetuadas á imagem")
       chooseFunction(string)}
       case 3=>{saveImage(editImage(loadImage(string),mirrorH),string)
-        println("alteraões efetuadas á imagem")
+        println("Alteraões efetuadas á imagem")
         chooseFunction(string)}
       case 4=>{saveImage(editImage(loadImage(string),rotateL),string)
-        println("alteraões efetuadas á imagem")
+        println("Alteraões efetuadas á imagem")
         chooseFunction(string)}
       case 5=>{saveImage(editImage(loadImage(string),rotateR),string)
-        println("alteraões efetuadas á imagem")
+        println("Alteraões efetuadas á imagem")
         chooseFunction(string)}
       case 6=>{saveImage(mapColourEffect(contrast,loadImage(string)),string)
-        println("alteraões efetuadas á imagem")
+        println("Alteraões efetuadas á imagem")
         chooseFunction(string)}
       case 7=>{saveImage(mapColourEffect(sepia,loadImage(string)),string)
-        println("alteraões efetuadas á imagem")
+        println("Alteraões efetuadas á imagem")
         chooseFunction(string)}
     //  case 8=>{saveImage(mapColourEffect(sepia,loadImage(string)),string)
     //    chooseFunction(string)}
