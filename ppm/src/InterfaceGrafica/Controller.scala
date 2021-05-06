@@ -4,15 +4,12 @@ import javafx.collections.{FXCollections, ObservableList}
 import javafx.fxml.FXML
 import javafx.scene.control.{Button, ListView, MenuButton, MenuItem, TextField, ToolBar}
 import javafx.scene.image.{Image, ImageView}
-import javafx.scene.layout.GridPane
+import javafx.scene.layout.{AnchorPane, GridPane}
 import package1.Manipulation.generateBitMapFromImage
 import package1.{BitMap, Manipulation}
 import random.MyRandom
-import javafx.scene.layout.AnchorPane
-import javafx.scene.layout.AnchorPane._
 
-import java.io.FileInputStream
-import java.io.File
+import java.io.{File, FileInputStream}
 
 class Controller {
 
@@ -77,13 +74,6 @@ class Controller {
   @FXML
   private var gridView: GridPane = _
 
-  /*val anchor: AnchorPane = new AnchorPane(album)
-  AnchorPane.setTopAnchor(album, 0.0)
-  AnchorPane.setLeftAnchor(album, 0.0)
-  /*AnchorPane.setTopAnchor(barra, 10.0)
-  AnchorPane.setRightAnchor(barra, 10.0)*/
-  anchor.getChildren().addAll(album) */
-
   def getListOfFiles(dir: String):List[File] = {
     val d = new File(dir)
     if (d.exists && d.isDirectory) {
@@ -95,15 +85,14 @@ class Controller {
 
   def carrega_Album(): Unit ={
     val lst: ObservableList[String] = FXCollections.observableArrayList()
-    val list = getListOfFiles(path)
     var list1 : List[String]= FileWriter.getImage.toList
     def aux(i:Int,i2:Int):Unit= {
       if(i<i2){
-        lst.addAll(list(i).getName)
+        lst.addAll(list1(i))
         aux(i+1,i2)
       }
     }
-    aux(0,list.length)
+    aux(0,list1.length)
     album.setItems(lst)
     barra.setVisible(false)
     left.setVisible(false)
@@ -112,6 +101,7 @@ class Controller {
     grid.setVisible(true)
     imagem.setImage(null)
     album.setDisable(false)
+    grid.setDisable(false)
   }
 
   def showImage:Unit = {
@@ -128,7 +118,11 @@ class Controller {
 
   def mostrar(): Unit={
     editar_Imagens.show()
-    album.setDisable(false)
+    album.setDisable(true)
+    grid.setDisable(true)
+    barra.setVisible(false)
+    left.setVisible(false)
+    right.setVisible(false)
     input.setVisible(false)
     input2.setVisible(false)
     salvar1.setVisible(false)
@@ -137,16 +131,18 @@ class Controller {
   }
 
   def salvarAdicionar():Unit={
-
     val str:String = input.getText
+    val str2: String = input2.getText
     input.clear()
+    input2.clear()
     if(new File(str).exists()) {
-      val str2: String = input2.getText
+      FileWriter.addImg(str2)
       val bit: BitMap = generateBitMapFromImage(str)
       bit.generateImageFromBitMap(path + "\\" + str2)
       input.setVisible(false)
       input2.setVisible(false)
       salvar2.setVisible(false)
+      carrega_Album()
     }else{
       input.setPromptText("Path mal introduzido")
     }
@@ -166,9 +162,11 @@ class Controller {
     val d = new File(path + "\\"+str)
     if (d.exists) {
       d.delete()
+      FileWriter.removeImg(str)
       input.setVisible(false)
       salvar1.setVisible(false)
       album.setDisable(false)
+      carrega_Album()
     } else {
       input.setPromptText("Imagem não existe")
       album.setDisable(false)
@@ -184,7 +182,20 @@ class Controller {
   }
 
   def salvarTrocar():Unit={
-
+    val str:String = input.getText
+    val str2:String = input2.getText
+    input.clear()
+    input2.clear()
+    if(new File(path + "\\"+str).exists() && new File(path + "\\"+str2).exists()) {
+      FileWriter.trocar(str,str2)
+      input.setVisible(false)
+      input2.setVisible(false)
+      salvar3.setVisible(false)
+      carrega_Album()
+    }else{
+      input.setPromptText("Path mal introduzido")
+      input2.setPromptText("Path mal introduzido")
+    }
   }
 
   def trocar(): Unit= {
@@ -324,52 +335,62 @@ class Controller {
   }
 
   def mostrarGrid():Unit={
+
     gridView.setVisible(true)
-    gridView.setGridLinesVisible(true)
     left.setVisible(false)
     right.setVisible(false)
     barra.setVisible(false)
     imagem.setImage(null)
-    def aux(i:Int,c:Int,l:Int):Unit= {
+    gridView.setGridLinesVisible(true)
+
+    /*val anchor = new AnchorPane(grid, view)
+    AnchorPane.setTopAnchor(view,1.0)
+    AnchorPane.setLeftAnchor(view,1.0)
+    AnchorPane.setRightAnchor(view,1.0)
+    AnchorPane.setBottomAnchor(view,1.0)*/
+    //anchor.getChildren.addAll(grid, view)
+
+
+    /*def aux(i:Int,c:Int,l:Int):Unit= {
       if(i<album.getItems.size()) {
-        val anchorpane = new AnchorPane
         var f = new FileInputStream(path + "\\" + album.getItems.get(i))
         var img = new Image(f)
         var view = new ImageView()
+        //var grid2 = new GridPane()
+        view.setFitWidth(gridView.getLayoutY)
+        view.setFitHeight(gridView.getLayoutY)
         view.setImage(img)
-        gridView.add(view,c,l)
-        setTopAnchor(view, 10.0)
+        gridView.addRow(c,view)
         aux(i+1,c+1,l)
       }
     }
-    aux(0,0,0)
+    aux(0,0,0)*/
+    /*val c = 0
+    val l = 0*/
+    var k = 0
+    for(c <- 0 to (album.getItems.size()/2).toInt - 1){
+      for(l <- 0 to (album.getItems.size()/2).toInt - 1){
+        var f = new FileInputStream(path + "\\" + album.getItems.get(k))
+        var img = new Image(f)
+        var view = new ImageView()
+        view.setFitWidth(gridView.getLayoutY)
+        view.setFitHeight(gridView.getLayoutY)
+        view.setImage(img)
+        gridView.add(view,l,c)
+        k = k + 1
+      }
+    }
+    if(album.getItems.size() % 2 != 0){
+      var f = new FileInputStream(path + "\\" + album.getItems.get(album.getItems.size() - 1))
+      var img = new Image(f)
+      var view = new ImageView()
+      view.setFitWidth(gridView.getLayoutY)
+      view.setFitHeight(gridView.getLayoutY)
+      view.setImage(img)
+      gridView.addRow(album.getItems.size()/2,view)
+    }
 
-    /*val f = new FileInputStream(path + "\\"  + album.getItems.get(0))
-    val img = new Image(f)
-    auxiliar.setImage(img)
-    gridView.add(auxiliar,0,0)
-
-    val f1 = new FileInputStream(path + "\\"  + album.getItems.get(1))
-    val img1 = new Image(f1)
-    val i = new ImageView()
-    i.setImage(img1)
-    gridView.add(i,0,1)
-
-    val f2 = new FileInputStream(path + "\\"  + album.getItems.get(2))
-    val img2 = new Image(f2)
-    val i2 = new ImageView()
-    i2.setImage(img2)
-    gridView.add(i2,1,0)
-
-    val f3 = new FileInputStream(path + "\\"  + album.getItems.get(3))
-    val img3 = new Image(f3)
-    val i3 = new ImageView()
-    i3.setImage(img3)
-    gridView.add(i3,1,1)*/
 
   }
-
-
-
 
 }

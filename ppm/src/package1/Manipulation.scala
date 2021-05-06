@@ -15,7 +15,7 @@ case class Manipulation[A](myField: QTree[Coords]){
   def mirrorH():QTree[Coords] = Manipulation.mirrorH(this.myField)
   def rotateL():QTree[Coords] = Manipulation.rotateL(this.myField)
   def rotateR():QTree[Coords] = Manipulation.rotateR(this.myField)
-  def mapColourEffectNoise(r: RandomWithState):QTree[Coords] = Manipulation.mapColourEffectNoise(this.myField,r,0)
+  def mapColourEffectNoise(r: RandomWithState):QTree[Coords] = Manipulation.mapColourEffectNoise(this.myField,r)
   def mapColourEffectContrast():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.contrast,this.myField)
   def mapColourEffectSepia():QTree[Coords] = Manipulation.mapColourEffect(Manipulation.sepia,this.myField)
 
@@ -290,23 +290,7 @@ object Manipulation{
     }
   }
 
-  def mapColourEffectNoise(qt:QTree[Coords], r:RandomWithState, i:Int):QTree[Coords] = {
-    qt match {
-      case QEmpty=> QEmpty
-      case QLeaf((value,color:Color)) =>
-        val r1 = rand(r)
-        QLeaf((value,noise(color,r1._1)))
-
-      case QNode(value,one,two,three,four) =>
-        val r1 = rand(r)
-        val r2 = rand(r1._2)
-        val r3 = rand(r2._2)
-        val r4 = rand(r3._2)
-        QNode(value,mapColourEffectNoise(one,r1._2,r1._1),mapColourEffectNoise(two,r2._2,r2._1),mapColourEffectNoise(three,r3._2,r3._1),mapColourEffectNoise(four,r4._2,r4._1))
-    }
-  }
-
-  /*def IntColour(i:Int):Color={
+  def IntColour(i:Int):Color={
       new Color(ImageUtil.decodeRgb(i)(0),ImageUtil.decodeRgb(i)(1),ImageUtil.decodeRgb(i)(2))
   }
 
@@ -315,7 +299,6 @@ object Manipulation{
   }
 
   def mapColourEffectNoise(qt:QTree[Coords],r: RandomWithState):QTree[Coords] = {
-    //val r = MyRandom(3)
     val qtList = makeBitMap(qt).getListOfList()
     val list: Array[Array[Int]] = Array.ofDim[Int](qTreeSize(qt)._1,qTreeSize(qt)._2)
     def aux1(cord: Coords, ra: RandomWithState): Unit = {
@@ -330,13 +313,12 @@ object Manipulation{
         }
       }
       if (cord._1._1 <= cord._2._1) {
-        //val random = rand(ra)
         aux2(((cord._1._1, cord._1._2), (cord._2._1, cord._2._2)),ra)
       }
     }
     aux1(cords(qt),r)
     makeQTree(BitMap(list.map(_.toList).toList))
-  }*/
+  }
 
 
 }

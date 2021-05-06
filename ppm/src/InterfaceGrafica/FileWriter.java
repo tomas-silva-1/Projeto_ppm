@@ -19,20 +19,26 @@ public class FileWriter {
         writeFile(list);
     }
 
-
     public static void removeImg(String nome) {
         ArrayList<String> list = getImages();
         list.remove(nome);
         writeFile(list);
     }
+
+    public static void trocar(String nome,String nome2){
+        ArrayList<String> list = getImages();
+        int n = list.indexOf(nome);
+        int n2 = list.indexOf(nome2);
+        list.set(n,nome2);
+        list.set(n2,nome);
+        writeFile(list);
+    }
+
     public static void writeFile(ArrayList<String> list){
         File file = new File("imagens.txt");
         try {
             PrintWriter writer = new PrintWriter(file);
             list.forEach(writer::println);
-          /*  for (String str: list) {
-                writer.println(str);
-            }*/
             writer.close();
 
         } catch (FileNotFoundException e) {
@@ -49,7 +55,6 @@ public class FileWriter {
             while (scanner.hasNextLine()) {
                 String img = scanner.nextLine();
                 list.add(img);
-                //scanner.nextLine();
             }
             scanner.close();
             return list;
@@ -66,7 +71,6 @@ public class FileWriter {
             while (scanner.hasNextLine()) {
                 String img = scanner.nextLine();
                 list.add(img);
-                //scanner.nextLine();
             }
             scanner.close();
 
