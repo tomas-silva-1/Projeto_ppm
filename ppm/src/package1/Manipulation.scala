@@ -2,7 +2,7 @@ package package1
 
 import package1.Manipulation.Coords
 import qtrees.{QEmpty, QLeaf, QNode, QTree}
-import random.{MyRandom, RandomWithState}
+import random.{RandomWithState}
 
 import java.awt.Color
 import scala.annotation.tailrec

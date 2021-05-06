@@ -1,7 +1,5 @@
 package package1
 
-
-import javafx.application.Application
 import package1.Manipulation.{Coords, Point, Section}
 import qtrees.{QLeaf, QNode, QTree}
 import random.MyRandom
@@ -10,8 +8,7 @@ import java.awt.Color
 
 object main {
 
-  //val path: String = "C:\\Users\\tomas\\Documents\\Docs\\Iscte\\ppm\\projeto\\Projeto_ppm\\ppm\\src\\imagens\\"
-  val path: String = "C:\\Users\\rodri\\Desktop\\Iscte\\Ppm\\Ppm_Projeto\\Projeto_ppm\\ppm\\src\\imagens\\"
+  val path: String = System.getProperty("user.dir") + "\\Projeto_ppm\\ppm\\src\\imagens"
 
 
   val l1: QLeaf[Coords, Section] = QLeaf((((0, 0): Point, (0, 0): Point): Coords, Color.red): Section)
@@ -73,10 +70,10 @@ object main {
    // bit.generateImageFromBitMap("image.png")
     //bit2.generateImageFromBitMap("image2.png")
     //bit3.generateImageFromBitMap("image3.png")
-    bit4.generateImageFromBitMap(path + "image4.png")
-    bitOrig.generateImageFromBitMap(path +"imageOrig.png")
-    bit_ex.generateImageFromBitMap(path+"img2.png")
-    bit_uma.generateImageFromBitMap(path+"img3.png")
+    bit4.generateImageFromBitMap(path + "\\" + "image4.png")
+    bitOrig.generateImageFromBitMap(path + "\\" + "imageOrig.png")
+    bit_ex.generateImageFromBitMap(path+ "\\" + "img2.png")
+    bit_uma.generateImageFromBitMap(path+ "\\" + "img3.png")
     //bit5.generateImageFromBitMap(path + "image5.png")
 
 

@@ -1,5 +1,7 @@
 package InterfaceGrafica;
 
+import javafx.scene.layout.GridPane;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,7 +12,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FileWriter {
+public class AuxJava {
 
 
     public static void addImg(String nome) {
@@ -82,6 +84,10 @@ public class FileWriter {
             lista[i]=list.get(i);
         }
         return lista;
+    }
+
+    public static void deleteGrid(GridPane g){
+        g.getChildren().clear();
     }
 
 }

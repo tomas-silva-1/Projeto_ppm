@@ -4,12 +4,13 @@ import javafx.collections.{FXCollections, ObservableList}
 import javafx.fxml.FXML
 import javafx.scene.control.{Button, ListView, MenuButton, MenuItem, TextField, ToolBar}
 import javafx.scene.image.{Image, ImageView}
-import javafx.scene.layout.{AnchorPane, GridPane}
+import javafx.scene.layout.{GridPane}
 import package1.Manipulation.generateBitMapFromImage
 import package1.{BitMap, Manipulation}
 import random.MyRandom
 
 import java.io.{File, FileInputStream}
+import scala.util.control.Breaks.{break, breakable}
 
 class Controller {
 
@@ -74,18 +75,9 @@ class Controller {
   @FXML
   private var gridView: GridPane = _
 
-  def getListOfFiles(dir: String):List[File] = {
-    val d = new File(dir)
-    if (d.exists && d.isDirectory) {
-      d.listFiles.filter(_.isFile).toList
-    } else {
-      List[File]()
-    }
-  }
-
   def carrega_Album(): Unit ={
     val lst: ObservableList[String] = FXCollections.observableArrayList()
-    var list1 : List[String]= FileWriter.getImage.toList
+    var list1 : List[String]= AuxJava.getImage.toList
     def aux(i:Int,i2:Int):Unit= {
       if(i<i2){
         lst.addAll(list1(i))
@@ -125,6 +117,8 @@ class Controller {
     right.setVisible(false)
     input.setVisible(false)
     input2.setVisible(false)
+    input.clear()
+    input2.clear()
     salvar1.setVisible(false)
     salvar2.setVisible(false)
     salvar3.setVisible(false)
@@ -136,7 +130,7 @@ class Controller {
     input.clear()
     input2.clear()
     if(new File(str).exists()) {
-      FileWriter.addImg(str2)
+      AuxJava.addImg(str2)
       val bit: BitMap = generateBitMapFromImage(str)
       bit.generateImageFromBitMap(path + "\\" + str2)
       input.setVisible(false)
@@ -162,7 +156,7 @@ class Controller {
     val d = new File(path + "\\"+str)
     if (d.exists) {
       d.delete()
-      FileWriter.removeImg(str)
+      AuxJava.removeImg(str)
       input.setVisible(false)
       salvar1.setVisible(false)
       album.setDisable(false)
@@ -187,7 +181,7 @@ class Controller {
     input.clear()
     input2.clear()
     if(new File(path + "\\"+str).exists() && new File(path + "\\"+str2).exists()) {
-      FileWriter.trocar(str,str2)
+      AuxJava.trocar(str,str2)
       input.setVisible(false)
       input2.setVisible(false)
       salvar3.setVisible(false)
@@ -336,60 +330,33 @@ class Controller {
 
   def mostrarGrid():Unit={
 
+    AuxJava.deleteGrid(gridView)
+    gridView.setHgap(10)
+    gridView.setVgap(10)
     gridView.setVisible(true)
     left.setVisible(false)
     right.setVisible(false)
     barra.setVisible(false)
     imagem.setImage(null)
-    gridView.setGridLinesVisible(true)
 
-    /*val anchor = new AnchorPane(grid, view)
-    AnchorPane.setTopAnchor(view,1.0)
-    AnchorPane.setLeftAnchor(view,1.0)
-    AnchorPane.setRightAnchor(view,1.0)
-    AnchorPane.setBottomAnchor(view,1.0)*/
-    //anchor.getChildren.addAll(grid, view)
-
-
-    /*def aux(i:Int,c:Int,l:Int):Unit= {
-      if(i<album.getItems.size()) {
-        var f = new FileInputStream(path + "\\" + album.getItems.get(i))
-        var img = new Image(f)
-        var view = new ImageView()
-        //var grid2 = new GridPane()
-        view.setFitWidth(gridView.getLayoutY)
-        view.setFitHeight(gridView.getLayoutY)
-        view.setImage(img)
-        gridView.addRow(c,view)
-        aux(i+1,c+1,l)
-      }
-    }
-    aux(0,0,0)*/
-    /*val c = 0
-    val l = 0*/
     var k = 0
-    for(c <- 0 to (album.getItems.size()/2).toInt - 1){
-      for(l <- 0 to (album.getItems.size()/2).toInt - 1){
-        var f = new FileInputStream(path + "\\" + album.getItems.get(k))
-        var img = new Image(f)
-        var view = new ImageView()
-        view.setFitWidth(gridView.getLayoutY)
-        view.setFitHeight(gridView.getLayoutY)
-        view.setImage(img)
-        gridView.add(view,l,c)
-        k = k + 1
+    for(c <- 0 to album.getItems.size()/2 - 1){
+      breakable {
+        for (l <- 0 to 3/*album.getItems.size() / 2 - 1*/) {
+          if (k >= album.getItems.size()) break
+          var f = new FileInputStream(path + "\\" + album.getItems.get(k))
+          var img = new Image(f)
+          var view = new ImageView()
+          view.setFitWidth(gridView.getLayoutY)
+          view.setFitHeight(gridView.getLayoutY)
+          view.setImage(img)
+
+          //gridView.addColumn(l,view)
+          gridView.add(view, l, c)
+          k = k + 1
+        }
       }
     }
-    if(album.getItems.size() % 2 != 0){
-      var f = new FileInputStream(path + "\\" + album.getItems.get(album.getItems.size() - 1))
-      var img = new Image(f)
-      var view = new ImageView()
-      view.setFitWidth(gridView.getLayoutY)
-      view.setFitHeight(gridView.getLayoutY)
-      view.setImage(img)
-      gridView.addRow(album.getItems.size()/2,view)
-    }
-
 
   }
 
