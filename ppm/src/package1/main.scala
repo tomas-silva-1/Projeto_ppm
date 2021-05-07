@@ -48,6 +48,10 @@ object main {
   val exScale = Manipulation(qtScale)
   val bitScale = exScale.makeBitMap()
 
+  val qtMirrorH = exam.mirrorH()
+  val exMirrorH = Manipulation(qtMirrorH)
+  val bitMirrorH = exMirrorH.makeBitMap()
+
   val qtMirrorV = ex.mirrorV()
   val exMirrorV = Manipulation(qtMirrorV)
   val bitMirrorV = exMirrorV.makeBitMap()
@@ -76,6 +80,7 @@ object main {
     bitOrig2.generateImageFromBitMap(path + "\\" + "imgOrig2.png")
     bitOrig3.generateImageFromBitMap(path + "\\" + "imgOrig3.png")
     bitScale.generateImageFromBitMap(path + "\\" + "imgScale.png")
+    bitMirrorH.generateImageFromBitMap(path + "\\" + "imgMirrorH.png")
     bitMirrorV.generateImageFromBitMap(path + "\\" + "imgMirrorV.png")
     bitRotateR.generateImageFromBitMap(path + "\\" + "imgRotateR.png")
     bitContrast.generateImageFromBitMap(path + "\\" + "imgContrast.png")
