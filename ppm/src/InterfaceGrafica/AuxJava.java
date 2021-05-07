@@ -65,6 +65,11 @@ public class AuxJava {
         }
 
     }
+    public static void trocarNome(String nome1, String nome2){
+        ArrayList<String> list = getImages();
+        list.set(list.indexOf(nome1),nome2 );
+        writeFile(list);
+    }
     public static String[] getImage() {
         File file = new File("imagens.txt");
         ArrayList<String> list = new ArrayList<>();
