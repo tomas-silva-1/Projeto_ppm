@@ -14,7 +14,7 @@ import scala.util.control.Breaks.{break, breakable}
 
 class Controller {
 
-  val path = System.getProperty("user.dir") + "\\Projeto_ppm\\ppm\\src\\imagens"
+  val path = System.getProperty("user.dir") + "\\Projeto_ppm\\ppm\\src\\imagensGUI"
 
   @FXML
   private var carregarAlbum : Button = _

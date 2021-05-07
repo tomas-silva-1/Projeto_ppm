@@ -17,72 +17,70 @@ object main {
   val l4: QLeaf[Coords, Section] = QLeaf((((1, 1): Point, (1, 1): Point): Coords, Color.green): Section)
   val qt: QTree[Coords] = QNode(((0, 0), (1, 1)), l1, l2, l3, l4)
 
-  val l8: QLeaf[Coords, Section] = QLeaf((((2, 2): Point, (2, 2): Point): Coords, Color.red): Section)
-  val l9: QLeaf[Coords, Section] = QLeaf((((3, 2): Point, (3, 2): Point): Coords, Color.blue): Section)
-  val l10: QLeaf[Coords, Section] = QLeaf((((2,3): Point, (2, 3): Point): Coords, Color.yellow): Section)
-  val l11: QLeaf[Coords, Section] = QLeaf((((3, 3): Point, (3, 3): Point): Coords, Color.green): Section)
-  val qt_2: QTree[Coords] = QNode(((2, 2), (3, 3)), l8, l9, l10, l11)
+  val l5: QLeaf[Coords, Section] = QLeaf((((2, 2): Point, (2, 2): Point): Coords, Color.red): Section)
+  val l6: QLeaf[Coords, Section] = QLeaf((((3, 2): Point, (3, 2): Point): Coords, Color.blue): Section)
+  val l7: QLeaf[Coords, Section] = QLeaf((((2,3): Point, (2, 3): Point): Coords, Color.yellow): Section)
+  val l8: QLeaf[Coords, Section] = QLeaf((((3, 3): Point, (3, 3): Point): Coords, Color.green): Section)
+  val qt_2: QTree[Coords] = QNode(((2, 2), (3, 3)), l5, l6, l7, l8)
 
 
-  val l5: QLeaf[Coords, Section] = QLeaf((((2, 0): Point, (3, 1): Point): Coords, Color.red): Section)
-  val l6: QLeaf[Coords, Section] = QLeaf((((0, 2): Point, (1, 3): Point): Coords, Color.blue): Section)
-  val l7: QLeaf[Coords, Section] = QLeaf((((2, 2): Point, (3, 3): Point): Coords, Color.yellow): Section)
-  val qt2: QTree[Coords] = qtrees.QNode(((0, 0), (3, 3)), qt, l5, l6, qt_2)
+  val l9: QLeaf[Coords, Section] = QLeaf((((2, 0): Point, (3, 1): Point): Coords, Color.red): Section)
+  val l10: QLeaf[Coords, Section] = QLeaf((((0, 2): Point, (1, 3): Point): Coords, Color.blue): Section)
+  val qt2: QTree[Coords] = qtrees.QNode(((0, 0), (3, 3)), qt, l9, l10, qt_2)
 
-  /*val bit = BitMap({val image : Array[Array[Int]] = ImageUtil.readColorImage(path + "img.png")
-    image.map(_.toList).toList})*/
+  val l11: QLeaf[Coords, Section] = QLeaf((((0, 0): Point, (0, 1): Point): Coords, Color.red): Section)
+  val l12: QLeaf[Coords, Section] = QLeaf((((1, 0): Point, (1, 1): Point): Coords, Color.yellow): Section)
+  val l13: QLeaf[Coords, Section] = QLeaf((((0, 2): Point, (0, 3): Point): Coords, Color.green): Section)
+  val l14: QLeaf[Coords, Section] = QLeaf((((1, 2): Point, (1, 3): Point): Coords, Color.blue): Section)
+  val qtImpar: QTree[Coords] = qtrees.QNode(((0, 0), (3, 3)), l11, l12, l13, l14)
 
   val ex = Manipulation(qt)
-
-  /*val bit2 : BitMap= ex.makeBitMap()
-
-
-  val qt3 = ex.mirrorV()
-  val ex1 = Example(qt3)
-  val bit3 = ex1.makeBitMap()*/
+  val exa = Manipulation(qt2)
+  val exam = Manipulation(qtImpar)
 
   val r = MyRandom(5)
-  val r1 = MyRandom(6)
-  val exa = Manipulation(qt2)
-  val qt4 = exa.mapColourEffectNoise(r)
-  val ex2 = Manipulation(qt4)
-  val bit4 = ex2.makeBitMap()
 
-  val bitOrig = exa.makeBitMap()
+  val bitOrig1 = ex.makeBitMap()
+  val bitOrig2 = exa.makeBitMap()
+  val bitOrig3 = exam.makeBitMap()
 
-  /*val i = ImagesAlbum(List())
-  val i2 = ImagesAlbum(i.add("picasso",bit4))*/
+  val qtScale = exam.scale(4)
+  val exScale = Manipulation(qtScale)
+  val bitScale = exScale.makeBitMap()
+
+  val qtMirrorV = ex.mirrorV()
+  val exMirrorV = Manipulation(qtMirrorV)
+  val bitMirrorV = exMirrorV.makeBitMap()
+
+  val qtRotateR = exa.rotateR()
+  val exRotateR = Manipulation(qtRotateR)
+  val bitRotateR = exRotateR.makeBitMap()
+
+  val qtContrast = exa.mapColourEffectContrast()
+  val exContrast = Manipulation(qtContrast)
+  val bitContrast = exContrast.makeBitMap()
+
+  val qtSepia = ex.mapColourEffectSepia()
+  val exSepia = Manipulation(qtSepia)
+  val bitSepia = exSepia.makeBitMap()
+
+  val qtNoise = exa.mapColourEffectNoise(r)
+  val exNoise = Manipulation(qtNoise)
+  val bitNoise = exNoise.makeBitMap()
 
 
 
   def main(args: Array[String]): Unit = {
 
-    /*val qt5 = exa.scale(0.5)
-    val ex5 = Manipulation(qt5)
-    val bit5 = ex5.makeBitMap()*/
-
-    val qt_ex = ex.makeQTree(bitOrig)
-    val exL = Manipulation(qt_ex)
-    val bit_ex = exL.makeBitMap()
-    val qtumasmrds=exa.mapColourEffectNoise(r1)
-    val ex_uma= Manipulation(qtumasmrds)
-    val bit_uma= ex_uma.makeBitMap()
-   // bit.generateImageFromBitMap("image.png")
-    //bit2.generateImageFromBitMap("image2.png")
-    //bit3.generateImageFromBitMap("image3.png")
-    bit4.generateImageFromBitMap(path + "\\" + "image4.png")
-    bitOrig.generateImageFromBitMap(path + "\\" + "imageOrig.png")
-    bit_ex.generateImageFromBitMap(path+ "\\" + "img2.png")
-    bit_uma.generateImageFromBitMap(path+ "\\" + "img3.png")
-    //bit5.generateImageFromBitMap(path + "image5.png")
-
-
-    println(qt_ex)
-
-    /*println(bit)
-    println(bit2)*/
-
-
+    bitOrig1.generateImageFromBitMap(path + "\\" + "imgOrig1.png")
+    bitOrig2.generateImageFromBitMap(path + "\\" + "imgOrig2.png")
+    bitOrig3.generateImageFromBitMap(path + "\\" + "imgOrig3.png")
+    bitScale.generateImageFromBitMap(path + "\\" + "imgScale.png")
+    bitMirrorV.generateImageFromBitMap(path + "\\" + "imgMirrorV.png")
+    bitRotateR.generateImageFromBitMap(path + "\\" + "imgRotateR.png")
+    bitContrast.generateImageFromBitMap(path + "\\" + "imgContrast.png")
+    bitSepia.generateImageFromBitMap(path + "\\" + "imgSepia.png")
+    bitNoise.generateImageFromBitMap(path + "\\" + "imgNoise.png")
 
   }
 
