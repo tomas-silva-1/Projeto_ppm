@@ -14,14 +14,15 @@
                 <MenuItem fx:id="adicionar_Imagem" mnemonicParsing="false" onAction="#adicionar" text="Adicionar Imagem" />
                 <MenuItem fx:id="remover_Imagem" mnemonicParsing="false" onAction="#remover" text="Remover Imagem" />
                   <MenuItem fx:id="trocar_Imagens" mnemonicParsing="false" onAction="#trocar" text="Trocar Imagens" />
+                  <MenuItem fx:id="mudarNome" mnemonicParsing="false" onAction="#nome" text="Mudar Nome" />
               </items>
             </MenuButton>
             <Button fx:id="grid" mnemonicParsing="false" onMousePressed="#mostrarGrid" text="Grid" visible="false" />
             <TextField fx:id="input" visible="false" />
             <TextField fx:id="input2" visible="false" />
-            <Button fx:id="salvar1" mnemonicParsing="false" onMousePressed="#salvarEliminar" text="Salvar" visible="false" />
-            <Button fx:id="salvar2" mnemonicParsing="false" onMousePressed="#salvarAdicionar" text="Salvar" visible="false" />
-            <Button fx:id="salvar3" mnemonicParsing="false" onMousePressed="#salvarTrocar" text="Salvar" visible="false" />
+            <Button fx:id="salvar1" mnemonicParsing="false" onMousePressed="#salvarAdicionarRemover" text="Salvar" visible="false" />
+            <Button fx:id="salvar2" mnemonicParsing="false" onMousePressed="#salvarTrocar" text="Salvar" visible="false" />
+            <Button fx:id="salvar3" mnemonicParsing="false" onMousePressed="#trocarNome" text="Salvar" visible="false" />
          </items>
       </ToolBar>
       <ListView fx:id="album" layoutY="38.0" onMousePressed="#showImage" prefHeight="501.0" prefWidth="144.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="38.0" />

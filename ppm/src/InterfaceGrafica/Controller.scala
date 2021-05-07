@@ -4,12 +4,13 @@ import javafx.collections.{FXCollections, ObservableList}
 import javafx.fxml.FXML
 import javafx.scene.control.{Button, ListView, MenuButton, MenuItem, TextField, ToolBar}
 import javafx.scene.image.{Image, ImageView}
-import javafx.scene.layout.{GridPane}
+import javafx.scene.layout.GridPane
 import package1.Manipulation.generateBitMapFromImage
 import package1.{BitMap, Manipulation}
 import random.MyRandom
 
 import java.io.{File, FileInputStream}
+import scala.util.Try
 import scala.util.control.Breaks.{break, breakable}
 
 class Controller {
@@ -58,6 +59,8 @@ class Controller {
   private var adicionar_Imagem : MenuItem = _
   @FXML
   private var trocar_Imagens : MenuItem = _
+  @FXML
+  private var mudarNome : MenuItem = _
   @FXML
   private var input : TextField = _
   @FXML
@@ -124,21 +127,38 @@ class Controller {
     salvar3.setVisible(false)
   }
 
-  def salvarAdicionar():Unit={
-    val str:String = input.getText
-    val str2: String = input2.getText
-    input.clear()
-    input2.clear()
-    if(new File(str).exists()) {
-      AuxJava.addImg(str2)
-      val bit: BitMap = generateBitMapFromImage(str)
-      bit.generateImageFromBitMap(path + "\\" + str2)
-      input.setVisible(false)
-      input2.setVisible(false)
-      salvar2.setVisible(false)
-      carrega_Album()
+  def salvarAdicionarRemover():Unit={
+    if(input2.isVisible){
+      val str:String = input.getText
+      val str2: String = input2.getText
+      input.clear()
+      input2.clear()
+      if(new File(str).exists()) {
+        AuxJava.addImg(str2)
+        val bit: BitMap = generateBitMapFromImage(str)
+        bit.generateImageFromBitMap(path + "\\" + str2)
+        input.setVisible(false)
+        input2.setVisible(false)
+        salvar1.setVisible(false)
+        carrega_Album()
+      }else{
+        input.setPromptText("Path mal introduzido")
+      }
     }else{
-      input.setPromptText("Path mal introduzido")
+      val str:String = input.getText
+      input.clear()
+      val d = new File(path + "\\"+str)
+      if (d.exists) {
+        //d.delete()
+        AuxJava.removeImg(str)
+        input.setVisible(false)
+        salvar1.setVisible(false)
+        album.setDisable(false)
+        carrega_Album()
+      } else {
+        input.setPromptText("Imagem não existe")
+        album.setDisable(false)
+      }
     }
   }
 
@@ -147,25 +167,7 @@ class Controller {
     input.setPromptText("Path da imagem")
     input2.setVisible(true)
     input2.setPromptText("Nome da imagem")
-    salvar2.setVisible(true)
-  }
-
-  def salvarEliminar():Unit={
-    val str:String = input.getText
-    input.clear()
-    val d = new File(path + "\\"+str)
-    if (d.exists) {
-      d.delete()
-      AuxJava.removeImg(str)
-      input.setVisible(false)
-      salvar1.setVisible(false)
-      album.setDisable(false)
-      carrega_Album()
-    } else {
-      input.setPromptText("Imagem não existe")
-      album.setDisable(false)
-    }
-
+    salvar1.setVisible(true)
   }
 
   def remover(): Unit= {
@@ -184,7 +186,7 @@ class Controller {
       AuxJava.trocar(str,str2)
       input.setVisible(false)
       input2.setVisible(false)
-      salvar3.setVisible(false)
+      salvar2.setVisible(false)
       carrega_Album()
     }else{
       input.setPromptText("Path mal introduzido")
@@ -197,8 +199,36 @@ class Controller {
     input.setPromptText("Nome da imagem")
     input2.setVisible(true)
     input2.setPromptText("Nome da imagem")
+    salvar2.setVisible(true)
+  }
+
+  def trocarNome():Unit={
+    val str:String = input.getText
+    val str2:String = input2.getText
+    input.clear()
+    input2.clear()
+    if(new File(path + "\\"+str).exists()) {
+      AuxJava.trocarNome(str,str2)
+      //Try(new File(path + "\\"+str).renameTo(new File(path + "\\"+str2))).getOrElse(false)
+      input.setVisible(false)
+      input2.setVisible(false)
+      salvar3.setVisible(false)
+      carrega_Album()
+    }else{
+      input.setPromptText("Nome mal introduzido")
+      input2.setPromptText("Novo nome da imagem")
+    }
+  }
+
+  def nome():Unit={
+    input.setVisible(true)
+    input.setPromptText("Nome da imagem")
+    input2.setVisible(true)
+    input2.setPromptText("Novo nome da imagem")
     salvar3.setVisible(true)
   }
+
+
 
   def rodarR():Unit={
     val str:String = album.getSelectionModel.getSelectedItem
@@ -340,7 +370,7 @@ class Controller {
     imagem.setImage(null)
 
     var k = 0
-    for(c <- 0 to album.getItems.size()/2 - 1){
+    for(c <- 0 to 3/*to album.getItems.size()/2 - 1*/){
       breakable {
         for (l <- 0 to 3/*album.getItems.size() / 2 - 1*/) {
           if (k >= album.getItems.size()) break
