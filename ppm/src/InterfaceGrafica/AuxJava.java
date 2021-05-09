@@ -27,12 +27,12 @@ public class AuxJava {
         ArrayList<String> list = getImages();
         list.remove(nome);
         writeFile(list);
-        File f = new File(path+nome);
+        /*File f = new File(path+nome);
         if(f.delete()){
             System.out.println("File deleted successfully");
         }else{
             System.out.println("Failed to delete the file");
-        }
+        }*/
     }
 
     public static void trocar(String nome,String nome2){
@@ -77,9 +77,9 @@ public class AuxJava {
         ArrayList<String> list = getImages();
         list.set(list.indexOf(nome1),nome2 );
         writeFile(list);
-        Manipulation.generateBitMapFromImage(path+nome1).generateImageFromBitMap(path+nome2);
+        /*Manipulation.generateBitMapFromImage(path+nome1).generateImageFromBitMap(path+nome2);
         File f = new File(path+nome1);
-        f.delete();
+        f.delete();*/
 
     }
     public static String[] getImage() {

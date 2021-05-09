@@ -108,6 +108,7 @@ class Controller {
     val f = new FileInputStream(path + "\\" + str)
     val img = new Image(f)
     imagem.setImage(img)
+    f.close()
   }
 
 
@@ -149,7 +150,7 @@ class Controller {
       input.clear()
       val d = new File(path + "\\"+str)
       if (d.exists) {
-        //d.delete()
+        d.delete()
         AuxJava.removeImg(str)
         input.setVisible(false)
         salvar1.setVisible(false)
@@ -209,7 +210,7 @@ class Controller {
     input2.clear()
     if(new File(path + "\\"+str).exists()) {
       AuxJava.trocarNome(str,str2)
-      //Try(new File(path + "\\"+str).renameTo(new File(path + "\\"+str2))).getOrElse(false)
+      Try(new File(path + "\\"+str).renameTo(new File(path + "\\"+str2))).getOrElse(false)
       input.setVisible(false)
       input2.setVisible(false)
       salvar3.setVisible(false)
@@ -238,6 +239,7 @@ class Controller {
     val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
+    f.close()
   }
 
   def rodarE():Unit={
@@ -248,6 +250,7 @@ class Controller {
     val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
+    f.close()
   }
 
   def espelhoV():Unit={
@@ -258,6 +261,7 @@ class Controller {
     val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
+    f.close()
   }
 
   def espelhoH():Unit={
@@ -268,6 +272,7 @@ class Controller {
     val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
+    f.close()
   }
 
   def noisee():Unit={
@@ -279,6 +284,7 @@ class Controller {
     val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
+    f.close()
   }
 
   def contraste():Unit={
@@ -289,6 +295,7 @@ class Controller {
     val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
+    f.close()
   }
 
   def sepiaa():Unit={
@@ -299,6 +306,7 @@ class Controller {
     val f = new FileInputStream(path + "\\"+str)
     val img = new Image(f)
     imagem.setImage(img)
+    f.close()
   }
 
   def resize():Unit={
@@ -319,6 +327,7 @@ class Controller {
     noise.setVisible(true)
     contrast.setVisible(true)
     sepia.setVisible(true)
+    f.close()
   }
 
   def opentextscale():Unit={
@@ -343,6 +352,7 @@ class Controller {
       val f = new FileInputStream(path + "\\" + str2)
       val img = new Image(f)
       imagem.setImage(img)
+      f.close()
     }
   }
 
@@ -355,6 +365,7 @@ class Controller {
       val f = new FileInputStream(path + "\\" + str2)
       val img = new Image(f)
       imagem.setImage(img)
+      f.close()
     }
   }
 
@@ -384,6 +395,7 @@ class Controller {
           //gridView.addColumn(l,view)
           gridView.add(view, l, c)
           k = k + 1
+          f.close()
         }
       }
     }
