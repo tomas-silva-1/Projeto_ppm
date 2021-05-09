@@ -381,9 +381,9 @@ class Controller {
     imagem.setImage(null)
 
     var k = 0
-    for(c <- 0 to 3/*to album.getItems.size()/2 - 1*/){
+    for(c <- 0 to 3){
       breakable {
-        for (l <- 0 to 3/*album.getItems.size() / 2 - 1*/) {
+        for (l <- 0 to 3) {
           if (k >= album.getItems.size()) break
           var f = new FileInputStream(path + "\\" + album.getItems.get(k))
           var img = new Image(f)
@@ -392,7 +392,6 @@ class Controller {
           view.setFitHeight(gridView.getLayoutY)
           view.setImage(img)
 
-          //gridView.addColumn(l,view)
           gridView.add(view, l, c)
           k = k + 1
           f.close()

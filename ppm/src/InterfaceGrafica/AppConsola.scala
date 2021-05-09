@@ -13,8 +13,8 @@ case class AppConsola() {
 object AppConsola{
 
   def iniciar(): String={
-    println("Insira o nome da imagem que deseja alterar:")
-    System.getProperty("user.dir") + "\\ppm\\src\\imagens\\"+readLine()
+    println("Insira o path da imagem que deseja alterar:")
+    readLine()
 
   }
   def loadImage(string: String): QTree[Coords] = {
